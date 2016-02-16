@@ -4,7 +4,7 @@
   "description": "Learning react",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build" : "browserify -t [ babelify --presets [ react ] ] src/index.js -o build/app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,15 @@
   "bugs": {
     "url": "https://github.com/JenBerry/jenberry-art-with-react/issues"
   },
-  "homepage": "https://github.com/JenBerry/jenberry-art-with-react#readme"
+  "homepage": "https://github.com/JenBerry/jenberry-art-with-react#readme",
+  "dependencies": {
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.2.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "watchify": "^3.7.0"
+  }
 }
