@@ -1,0 +1,19 @@
+{
+  "name": "jenberry-art-with-react",
+  "version": "1.0.0",
+  "description": "Learning react",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JenBerry/jenberry-art-with-react.git"
+  },
+  "author": "JenBerry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JenBerry/jenberry-art-with-react/issues"
+  },
+  "homepage": "https://github.com/JenBerry/jenberry-art-with-react#readme"
+}
