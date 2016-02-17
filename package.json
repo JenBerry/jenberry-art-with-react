@@ -4,7 +4,8 @@
   "description": "Learning react",
   "main": "index.js",
   "scripts": {
-    "build" : "browserify -t [ babelify --presets [ react ] ] src/index.js -o build/app.js"
+    "build" : "browserify -t [ babelify --presets [ react ] ] src/index.js -o build/app.js",
+    "watch" : "watchify -t [ babelify --presets [ react ] ] src/index.js -o build/app.js"
   },
   "repository": {
     "type": "git",
