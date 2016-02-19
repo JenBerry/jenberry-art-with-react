@@ -1,9 +1,10 @@
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
 	entry: "./src/index.jsx",
 	output: {
 		path: __dirname + '/build',
 		filename: "app.js",
-		publicPath: "/build/"
+		publicPath: "/"
 	},
 	module: {
 		loaders: [
@@ -25,7 +26,14 @@ module.exports = {
 			{
 				test: /src\/.*.less/,
 				loaders: ["style", "css", "less"]
+			},
+			{
+				test: /.*.html/,
+				loader: ExtractTextPlugin.extract("html-loader")
 			}
 		]
-	}
+	},
+	plugins: [
+		new ExtractTextPlugin("index.html")
+	]
 };

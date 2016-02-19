@@ -1,10 +1,9 @@
 var ReactDOM = require('react-dom');
 var React = require('react');
-
+var html = require('./index.html')
 // Uncomment to use Bootstrap javascript elements
-// global.jQuery = require('jquery');
-// var bootstrap = require('bootstrap-webpack');
-
+	// global.jQuery = require('jquery');
+	// var bootstrap = require('bootstrap-webpack');
 var styles = require('./styles.less');
 
 var HelloWorld = React.createClass({
