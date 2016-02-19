@@ -18,14 +18,24 @@
   },
   "homepage": "https://github.com/JenBerry/jenberry-art-with-react#readme",
   "dependencies": {
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7"
-  },
-  "devDependencies": {
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.2",
     "babel-preset-react": "^6.5.0",
-    "webpack": "^1.12.13",
+    "bootstrap-loader": "^1.0.8",
+    "bootstrap-sass": "^3.3.6",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "jquery": "^2.2.0",
+    "node-sass": "^3.4.2",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "resolve-url-loader": "^1.4.3",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.13"
+  },
+  "devDependencies": {
     "webpack-dev-server": "^1.14.1"
   }
 }

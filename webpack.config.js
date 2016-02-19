@@ -13,6 +13,18 @@ module.exports = {
 				query: {
 					presets: ['react']
 				}
+			},
+			{
+				test: /\.(woff2?|svg)$/,
+				loader: 'url?limit=10000'
+			},
+			{
+				test: /\.(ttf|eot)$/,
+				loader: 'file'
+			},
+			{
+				test: /src\/.*.scss$/,
+				loaders: ["style", "css", "sass"]
 			}
 		]
 	}
