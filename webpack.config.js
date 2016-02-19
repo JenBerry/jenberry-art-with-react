@@ -23,8 +23,8 @@ module.exports = {
 				loader: 'file'
 			},
 			{
-				test: /src\/.*.scss$/,
-				loaders: ["style", "css", "sass"]
+				test: /src\/.*.less/,
+				loaders: ["style", "css", "less"]
 			}
 		]
 	}
