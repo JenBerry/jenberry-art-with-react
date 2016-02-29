@@ -12,7 +12,7 @@ var Page = React.createClass({
 		this.setState({page:page});
 	},
 	getInitialState: function(){
-		return {page: 'home'}
+		return {page: 'artwork'}
 	},
 	render: function(){
 		return(
