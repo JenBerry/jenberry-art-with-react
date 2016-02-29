@@ -6,18 +6,28 @@ var html = require('./index.html')
 	// var bootstrap = require('bootstrap-webpack');
 var styles = require('./styles.less');
 
-var HelloWorld = React.createClass({
+
+var Page = React.createClass({
+	setPage: function(page){
+		this.setState({page:page});
+	},
+	getInitialState: function(){
+		return {page: 'home'}
+	},
 	render: function(){
 		return(
 		<div className="container">
-			<div className="row">
-				<div className="col-xs-12 col-sm-6 col-lg-4">
-					<h1>  hello world </h1>
-				</div>
-			</div>
+			<Header page={this.state.page} setPage={this.setPage} />
+			<PageContents page={this.state.page} />
+			<Footer />
 		</div>
 		);
 	}
 });
 
-ReactDOM.render(<HelloWorld />, document.getElementById('app'));
+var Header = require('./header.jsx');
+var Footer = require('./footer.jsx');
+var PageContents = require('./page-contents.jsx');
+
+
+ReactDOM.render(<Page />, document.getElementById('app'));
