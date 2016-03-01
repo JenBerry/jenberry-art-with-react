@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router').Link;
 
 var ArtPageContents = React.createClass({
 	render: function(){
@@ -21,10 +22,10 @@ var ArtPageContents = React.createClass({
 		]
 		var galleryItems = galleries.map(function(gallery, i){
 			return (
-				<li key={i}><a className="block-link" href="#">
+				<li key={i}><Link className="block-link" to="/gallery">
 					<h3 key={i}>{gallery.name}</h3>
 					<img className="full-width" src={gallery.imageUrl} />
-				</a></li>
+				</Link></li>
 			)
 		}, this);
 		return(

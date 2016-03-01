@@ -16,7 +16,7 @@ var Header = React.createClass({
 		].map(function(pageName, i){
 			return (
 				<li className={pageName===this.props.page ? 'active' : ''} key={i}>
-					<a key={i} href="#" onClick={this.clicked.bind(this, pageName)}>{pageName}</a>
+					<a href="#" onClick={this.clicked.bind(this, pageName)}>{pageName}</a>
 				</li>
 			)
 		}, this);

@@ -35,6 +35,7 @@ var Header = require('./header.jsx');
 var Footer = require('./footer.jsx');
 var PageContents = require('./page-contents.jsx');
 var PageGallery = require('./page-gallery.jsx');
+var PageArtwork = require('./page-artwork.jsx');
 
 var NotFound = React.createClass({
 	render: function(){
@@ -49,9 +50,11 @@ var NotFound = React.createClass({
 ReactDOM.render((
 	<Router history={hashHistory}>
 		<Route path="/" component={Page}>
-			<IndexRoute component={PageGallery} />
+			<IndexRoute component={PageContents} />
+			<Route path="/gallery" component={PageGallery} />
+			<Route path="/artwork" component={PageArtwork} />
+			<Route path="*" component={NotFound} />
 		</Route>
-		<Route path="*" component={NotFound} />
 	</Router>
 ),
 document.getElementById('app'));

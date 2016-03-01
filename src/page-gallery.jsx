@@ -1,6 +1,6 @@
 var React = require('react');
-var ArtPageContents = require('./page-contents/art.jsx');
 var Lorem = require('react-lorem-component');
+var Link = require('react-router').Link;
 
 var PageGallery = React.createClass({
 	click: function(thing){
@@ -28,10 +28,10 @@ var PageGallery = React.createClass({
 		var artItems = artThumbs.map(function(artThumb, i){
 			return(
 				<li className="block-grid-item list-unstyled" key={i}>
-					<a href="#" className="block-link">
+					<Link to="/artwork" className="block-link">
 						<img src={artThumb.imageUrl} />
 						<h3>{artThumb.name}</h3>
-					</a>
+					</Link>
 				</li>
 			)
 		}, this);
