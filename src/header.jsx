@@ -14,7 +14,7 @@ var Header = React.createClass({
 		].map(function(pageName, i){
 			return (
 				<li key={i}>
-					<Link to={pageName} >{pageName}</Link>
+					<Link to={pageName} activeClassName="active" onlyActiveOnIndex={true}>{pageName}</Link>
 				</li>
 			)
 		}, this);

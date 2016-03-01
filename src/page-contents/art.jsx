@@ -29,11 +29,9 @@ var ArtPageContents = React.createClass({
 			)
 		}, this);
 		return(
-			<div className="row">
-				<div className="col-xs-12 col-sm-6 col-sm-offset-6">
-					<h2>Artwork</h2>
-					{galleryItems}
-				</div>
+			<div>
+				<h2>Artwork</h2>
+				{galleryItems}
 			</div>
 		);
 	}
