@@ -43,6 +43,7 @@
     "webpack": "^1.12.13"
   },
   "devDependencies": {
+    "react-lorem-component": "^0.10.0",
     "webpack-dev-server": "^1.14.1"
   }
 }
