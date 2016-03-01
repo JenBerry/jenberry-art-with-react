@@ -1,22 +1,20 @@
 var React = require('react');
+var Link = require('react-router').Link;
 
 var Header = React.createClass({
-	clicked: function(something){
-		this.props.setPage(something);
-	},
 	render: function(){
 		var navItems = [
 			'home',
-			'artwork',
+			'art',
 			'design',
 			'portfolio',
 			'prices',
-			'about me',
+			'about',
 			'contact'
 		].map(function(pageName, i){
 			return (
-				<li className={pageName===this.props.page ? 'active' : ''} key={i}>
-					<a href="#" onClick={this.clicked.bind(this, pageName)}>{pageName}</a>
+				<li key={i}>
+					<Link to={pageName} >{pageName}</Link>
 				</li>
 			)
 		}, this);
