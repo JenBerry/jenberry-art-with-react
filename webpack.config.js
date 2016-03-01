@@ -24,11 +24,11 @@ module.exports = {
 				loader: 'file'
 			},
 			{
-				test: /src\/.*.less/,
+				test: /src\/.*.less$/,
 				loaders: ["style", "css", "less"]
 			},
 			{
-				test: /.*.html/,
+				test: /.*.html$/,
 				loader: ExtractTextPlugin.extract("html-loader")
 			}
 		]

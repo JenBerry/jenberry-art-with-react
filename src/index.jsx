@@ -1,17 +1,17 @@
 var ReactDOM = require('react-dom');
 var React = require('react');
-
-var Router = require('react-router').Router;
-var Route = require('react-router').Route;
-var Link = require('react-router').Link;
-var hashHistory = require('react-router').hashHistory;
-
+var ReactRouter = require('react-router');
 var html = require('./index.html');
 // Uncomment to use Bootstrap javascript elements
 	// global.jQuery = require('jquery');
 	// var bootstrap = require('bootstrap-webpack');
 var styles = require('./styles.less');
 
+var Router = ReactRouter.Router;
+var Route = ReactRouter.Route;
+var Link = ReactRouter.Link;
+var hashHistory = ReactRouter.hashHistory;
+var IndexRoute = ReactRouter.IndexRoute;
 
 var Page = React.createClass({
 	setPage: function(page){
@@ -24,8 +24,7 @@ var Page = React.createClass({
 		return(
 		<div className="container">
 			<Header page={this.state.page} setPage={this.setPage} />
-			<PageContents page={this.state.page} />
-			<Link to="foo">foo</Link>
+			{ this.props.children }
 			<Footer />
 		</div>
 		);
@@ -48,7 +47,9 @@ var NotFound = React.createClass({
 
 ReactDOM.render((
 	<Router history={hashHistory}>
-		<Route path="/" component={Page} />
+		<Route path="/" component={Page}>
+			<IndexRoute component={PageContents} />
+		</Route>
 		<Route path="*" component={NotFound} />
 	</Router>
 ),
