@@ -1,11 +1,32 @@
 var ReactDOM = require('react-dom');
 var React = require('react');
 var ReactRouter = require('react-router');
+var Redux = require('redux');
 var html = require('./index.html');
 // Uncomment to use Bootstrap javascript elements
 	// global.jQuery = require('jquery');
 	// var bootstrap = require('bootstrap-webpack');
 var styles = require('./styles.less');
+
+
+
+function counter(state, action) {
+	state = typeof state !== 'undefined' ? state : 0;
+	switch (action.type) {
+		case 'INCREMENT':
+			return state + 1
+		case 'DECREMENT':
+			return state - 1
+		default:
+			return state
+	}
+}
+var store = Redux.createStore(counter);
+store.subscribe(function(){
+	console.log(store.getState())
+})
+
+
 
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
@@ -15,16 +36,14 @@ var IndexRoute = ReactRouter.IndexRoute;
 var IndexRedirect = ReactRouter.IndexRedirect;
 
 var Page = React.createClass({
-	setPage: function(page){
-		this.setState({page:page});
-	},
-	getInitialState: function(){
-		return {page: 'artwork'}
+	click: function(){
+		store.dispatch({ type: 'INCREMENT' });
 	},
 	render: function(){
 		return(
 		<div className="container">
-			<Header page={this.state.page} setPage={this.setPage} />
+			<Header />
+			<button onClick={this.click}>click</button>
 			{ this.props.children }
 			<Footer />
 		</div>
