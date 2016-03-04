@@ -1,33 +1,10 @@
 const ReactDOM = require('react-dom');
 const React = require('react');
-const ReactRouter = require('react-router');
+
 const Redux = require('redux');
 const ReactRedux = require('react-redux');
-const html = require('./index.html');
-// Uncomment to use Bootstrap javascript elements
-	// global.jQuery = require('jquery');
-	// const bootstrap = require('bootstrap-webpack');
-const styles = require('./styles.less');
 
-
-
-const counter = (state=0, action) => {
-	switch (action.type) {
-		case 'INCREMENT':
-			return state + 1
-		case 'DECREMENT':
-			return state - 1
-		default:
-			return state
-	}
-}
-const store = Redux.createStore(counter);
-store.subscribe(() => {
-	console.log(store.getState())
-})
-
-
-
+const ReactRouter = require('react-router');
 const Router = ReactRouter.Router;
 const Route = ReactRouter.Route;
 const Link = ReactRouter.Link;
@@ -35,9 +12,38 @@ const hashHistory = ReactRouter.hashHistory;
 const IndexRoute = ReactRouter.IndexRoute;
 const IndexRedirect = ReactRouter.IndexRedirect;
 
+const html = require('./index.html');
+// Uncomment to use Bootstrap javascript elements
+	// global.jQuery = require('jquery');
+	// const bootstrap = require('bootstrap-webpack');
+const styles = require('./styles.less');
+
+
+const artReducer = (state = [], action) => {
+	switch (action.type){
+		case 'ADD_TEST_ART':
+			return [
+				...state,
+				{
+					name: "Test Art",
+					url: "http://lorempixel.com/518/750/abstract/1",
+					thumbUrl: "http://lorempixel.com/160/160/abstract/1",
+					gallery: "Artwork"
+				}
+			]
+		default:
+			return state;
+	}
+}
+const store = Redux.createStore(artReducer);
+store.subscribe(() => {
+	console.log(store.getState())
+})
+
+
 const Page = React.createClass({
 	onClick: () => {
-		store.dispatch({ type: 'INCREMENT' });
+		store.dispatch({ type: 'ADD_TEST_ART' });
 	},
 	render(){
 		return(
