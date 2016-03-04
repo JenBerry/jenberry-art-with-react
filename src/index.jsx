@@ -2,6 +2,7 @@ var ReactDOM = require('react-dom');
 var React = require('react');
 var ReactRouter = require('react-router');
 var Redux = require('redux');
+var ReactRedux = require('react-redux');
 var html = require('./index.html');
 // Uncomment to use Bootstrap javascript elements
 	// global.jQuery = require('jquery');
@@ -10,8 +11,7 @@ var styles = require('./styles.less');
 
 
 
-function counter(state, action) {
-	state = typeof state !== 'undefined' ? state : 0;
+const counter = (state=0, action) => {
 	switch (action.type) {
 		case 'INCREMENT':
 			return state + 1
@@ -36,14 +36,14 @@ var IndexRoute = ReactRouter.IndexRoute;
 var IndexRedirect = ReactRouter.IndexRedirect;
 
 var Page = React.createClass({
-	click: function(){
+	onClick: () => {
 		store.dispatch({ type: 'INCREMENT' });
 	},
 	render: function(){
 		return(
 		<div className="container">
 			<Header />
-			<button onClick={this.click}>click</button>
+			<button onClick={this.onClick}>click</button>
 			{ this.props.children }
 			<Footer />
 		</div>
