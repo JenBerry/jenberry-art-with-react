@@ -3,6 +3,8 @@ const React = require('react');
 
 const Redux = require('redux');
 const ReactRedux = require('react-redux');
+const Provider = ReactRedux.Provider;
+const connect = ReactRedux.connect;
 
 const ReactRouter = require('react-router');
 const Router = ReactRouter.Router;
@@ -35,15 +37,11 @@ const artReducer = (state = [], action) => {
 			return state;
 	}
 }
-const store = Redux.createStore(artReducer);
-store.subscribe(() => {
-	console.log(store.getState())
-})
 
 
 const Page = React.createClass({
-	onClick: () => {
-		store.dispatch({ type: 'ADD_TEST_ART' });
+	onClick(){
+		this.props.dispatch({ type: 'ADD_TEST_ART' });
 	},
 	render(){
 		return(
@@ -56,12 +54,14 @@ const Page = React.createClass({
 		);
 	}
 });
+const PageContainer = connect()(Page);
+
 
 const Header = require('./header.jsx');
 const Footer = require('./footer.jsx');
 const PageContents = require('./page-contents.jsx');
 const PageGallery = require('./page-gallery.jsx');
-const PageArtwork = require('./page-artwork.jsx');
+const PageArtworkContainer = require('./page-artwork.jsx');
 
 const HomePageContents = require('./page-contents/home.jsx');
 const ArtPageContents = require('./page-contents/art.jsx');
@@ -80,21 +80,24 @@ const NotFound = React.createClass({
 
 
 ReactDOM.render((
-	<Router history={hashHistory}>
-		<Route path="/" component={Page}>
-			<IndexRedirect to="/home" />
-			<Route path="/home" component={PageContents}>
-				<IndexRoute component={HomePageContents} />
-				<Route path="/art" component={ArtPageContents} />
-				<Route path="/design" component={ArtPageContents} />
-				<Route path="/prices" component={PricesPageContents} />
-				<Route path="/about" component={AboutPageContents} />
-				<Route path="/contact" component={ContactPageContents} />
+
+	<Provider store={Redux.createStore(artReducer)}>
+		<Router history={hashHistory}>
+			<Route path="/" component={PageContainer}>
+				<IndexRedirect to="/home" />
+				<Route path="/home" component={PageContents}>
+					<IndexRoute component={HomePageContents} />
+					<Route path="/art" component={ArtPageContents} />
+					<Route path="/design" component={ArtPageContents} />
+					<Route path="/prices" component={PricesPageContents} />
+					<Route path="/about" component={AboutPageContents} />
+					<Route path="/contact" component={ContactPageContents} />
+				</Route>
+				<Route path="/gallery" component={PageGallery} />
+				<Route path="/artwork" component={PageArtworkContainer} />
+				<Route path="*" component={NotFound} />
 			</Route>
-			<Route path="/gallery" component={PageGallery} />
-			<Route path="/artwork" component={PageArtwork} />
-			<Route path="*" component={NotFound} />
-		</Route>
-	</Router>
+		</Router>
+	</Provider>
 ),
 document.getElementById('app'));
