@@ -1,7 +1,7 @@
 var React = require('react');
 
 var PageContents = React.createClass({
-	render: function(){
+	render(){
 		return(
 			<div>
 				<div className="row">

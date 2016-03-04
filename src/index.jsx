@@ -1,13 +1,13 @@
-var ReactDOM = require('react-dom');
-var React = require('react');
-var ReactRouter = require('react-router');
-var Redux = require('redux');
-var ReactRedux = require('react-redux');
-var html = require('./index.html');
+const ReactDOM = require('react-dom');
+const React = require('react');
+const ReactRouter = require('react-router');
+const Redux = require('redux');
+const ReactRedux = require('react-redux');
+const html = require('./index.html');
 // Uncomment to use Bootstrap javascript elements
 	// global.jQuery = require('jquery');
-	// var bootstrap = require('bootstrap-webpack');
-var styles = require('./styles.less');
+	// const bootstrap = require('bootstrap-webpack');
+const styles = require('./styles.less');
 
 
 
@@ -21,25 +21,25 @@ const counter = (state=0, action) => {
 			return state
 	}
 }
-var store = Redux.createStore(counter);
-store.subscribe(function(){
+const store = Redux.createStore(counter);
+store.subscribe(() => {
 	console.log(store.getState())
 })
 
 
 
-var Router = ReactRouter.Router;
-var Route = ReactRouter.Route;
-var Link = ReactRouter.Link;
-var hashHistory = ReactRouter.hashHistory;
-var IndexRoute = ReactRouter.IndexRoute;
-var IndexRedirect = ReactRouter.IndexRedirect;
+const Router = ReactRouter.Router;
+const Route = ReactRouter.Route;
+const Link = ReactRouter.Link;
+const hashHistory = ReactRouter.hashHistory;
+const IndexRoute = ReactRouter.IndexRoute;
+const IndexRedirect = ReactRouter.IndexRedirect;
 
-var Page = React.createClass({
+const Page = React.createClass({
 	onClick: () => {
 		store.dispatch({ type: 'INCREMENT' });
 	},
-	render: function(){
+	render(){
 		return(
 		<div className="container">
 			<Header />
@@ -51,20 +51,20 @@ var Page = React.createClass({
 	}
 });
 
-var Header = require('./header.jsx');
-var Footer = require('./footer.jsx');
-var PageContents = require('./page-contents.jsx');
-var PageGallery = require('./page-gallery.jsx');
-var PageArtwork = require('./page-artwork.jsx');
+const Header = require('./header.jsx');
+const Footer = require('./footer.jsx');
+const PageContents = require('./page-contents.jsx');
+const PageGallery = require('./page-gallery.jsx');
+const PageArtwork = require('./page-artwork.jsx');
 
-var HomePageContents = require('./page-contents/home.jsx');
-var ArtPageContents = require('./page-contents/art.jsx');
-var PricesPageContents
-var AboutPageContents
-var ContactPageContents
+const HomePageContents = require('./page-contents/home.jsx');
+const ArtPageContents = require('./page-contents/art.jsx');
+let PricesPageContents
+let AboutPageContents
+let ContactPageContents
 
-var NotFound = React.createClass({
-	render: function(){
+const NotFound = React.createClass({
+	render(){
 		return(
 			<h1>Page Not found <Link to="/">Go home</Link></h1>
 		)

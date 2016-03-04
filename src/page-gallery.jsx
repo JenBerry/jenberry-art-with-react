@@ -1,19 +1,19 @@
-var React = require('react');
-var Lorem = require('react-lorem-component');
-var Link = require('react-router').Link;
+const React = require('react');
+const Lorem = require('react-lorem-component');
+const Link = require('react-router').Link;
 
-var PageGallery = React.createClass({
-	click: function(thing){
+const PageGallery = React.createClass({
+	click(thing){
 		console.log(thing);
 	},
-	render: function(){
-		var artThumb = function(name, imageUrl){
+	render(){
+		const artThumb = (name, imageUrl) => {
 			return({
 				name: name,
 				imageUrl: imageUrl
 			})
 		}
-		var artThumbs = [
+		const artThumbs = [
 			artThumb('kjdshf ka', 'http://lorempixel.com/160/160/abstract/1'),
 			artThumb('hkfjae keja', 'http://lorempixel.com/160/160/abstract/2'),
 			artThumb('gea', 'http://lorempixel.com/160/160/abstract/3'),
@@ -25,7 +25,7 @@ var PageGallery = React.createClass({
 			artThumb('jhh', 'http://lorempixel.com/160/160/abstract/9'),
 			artThumb('lklkjkj jagdf a', 'http://lorempixel.com/160/160/abstract/10'),
 		]
-		var artItems = artThumbs.map(function(artThumb, i){
+		const artItems = artThumbs.map(function(artThumb, i){
 			return(
 				<li className="block-grid-item list-unstyled" key={i}>
 					<Link to="/artwork" className="block-link">

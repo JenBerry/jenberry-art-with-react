@@ -1,9 +1,9 @@
-var React = require('react');
-var Link = require('react-router').Link;
+const React = require('react');
+const Link = require('react-router').Link;
 
-var ArtPageContents = React.createClass({
-	render: function(){
-		var gallery = function(name, slug, imageUrl){
+const ArtPageContents = React.createClass({
+	render(){
+		const gallery = (name, slug, imageUrl) => {
 			return (
 				{
 					name: name,
@@ -12,7 +12,7 @@ var ArtPageContents = React.createClass({
 				}
 			)
 		}
-		var galleries = [
+		const galleries = [
 			gallery('Abstract Art',                     'abstract',    'http://lorempixel.com/496/89/abstract/1'),
 			gallery('Digital Art',                      'digital',     'http://lorempixel.com/496/89/abstract/2'),
 			gallery('Traditional Paintings & Drawings', 'traditional', 'http://lorempixel.com/496/89/abstract/3'),
@@ -20,7 +20,7 @@ var ArtPageContents = React.createClass({
 			gallery('Concept Sketches & Speedpaints',   'sketches',    'http://lorempixel.com/496/89/abstract/5'),
 			gallery('Tutorials & Walkthroughs',         'tutorials',   'http://lorempixel.com/496/89/abstract/6')
 		]
-		var galleryItems = galleries.map(function(gallery, i){
+		const galleryItems = galleries.map((gallery, i) => {
 			return (
 				<li key={i}><Link className="block-link" to="/gallery">
 					<h3 key={i}>{gallery.name}</h3>

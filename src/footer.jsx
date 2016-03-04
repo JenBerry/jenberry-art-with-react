@@ -1,7 +1,7 @@
-var React = require('react');
+const React = require('react');
 
-var Footer = React.createClass({
-	render: function(){
+const Footer = React.createClass({
+	render(){
 		return(
 			<footer><hr />Footer</footer>
 		);

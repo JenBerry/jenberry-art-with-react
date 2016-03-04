@@ -1,8 +1,8 @@
-var React = require('react');
-var Lorem = require('react-lorem-component');
+const React = require('react');
+const Lorem = require('react-lorem-component');
 
-var HomePageContents = React.createClass({
-	render: function(){
+const HomePageContents = React.createClass({
+	render(){
 		
 		return(
 			<div>

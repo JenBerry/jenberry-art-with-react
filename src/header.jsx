@@ -1,9 +1,9 @@
-var React = require('react');
-var Link = require('react-router').Link;
+const React = require('react');
+const Link = require('react-router').Link;
 
-var Header = React.createClass({
-	render: function(){
-		var navItems = [
+const Header = React.createClass({
+	render(){
+		const navItems = [
 			'home',
 			'art',
 			'design',

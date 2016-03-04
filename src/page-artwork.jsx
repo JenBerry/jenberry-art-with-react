@@ -1,10 +1,10 @@
-var React = require('react');
-var Link = require('react-router').Link;
-var Lorem = require('react-lorem-component');
+const React = require('react');
+const Link = require('react-router').Link;
+const Lorem = require('react-lorem-component');
 
-var PageArtwork = React.createClass({
-	render: function(){
-		var artwork = {
+const PageArtwork = React.createClass({
+	render(){
+		const artwork = {
 			name: "Fjadak skjdabb",
 			gallery: "Abstract Art",
 			url: "http://lorempixel.com/518/750/abstract"
