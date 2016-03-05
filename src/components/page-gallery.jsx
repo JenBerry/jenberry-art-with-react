@@ -8,7 +8,7 @@ const PageGallery = React.createClass({
 	},
 	render(){
 		const galleryImages = this.props.galleryImages
-		const artItems = galleryImages.map(function(artThumb, i){
+		const artItems = galleryImages.map((artThumb, i) => {
 			return(
 				<li className="block-grid-item list-unstyled" key={i}>
 					<Link to="/artwork" className="block-link">

@@ -1,4 +1,3 @@
-/*jshint esversion: 6 */
 const Lorem = require('react-lorem-component');
 const artReducer = (state = [], action) => {
 	switch (action.type){
