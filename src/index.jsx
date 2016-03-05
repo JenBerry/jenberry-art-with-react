@@ -20,7 +20,6 @@ const html = require('./index.html');
 	// const bootstrap = require('bootstrap-webpack');
 const styles = require('./styles.less');
 
-
 const Page = require('./components/page.jsx');
 const PageContents = require('./components/page-contents.jsx');
 const PageGallery = require('./components/page-gallery.jsx');
@@ -50,9 +49,14 @@ const PageContainer = connect(
 		}
 	}
 )(Page);
+
 const PageArtworkContainer = connect(
 	(state) => {return{artwork: state[0]}}
 )(PageArtwork);
+
+const PageGalleryContainer = connect(
+	(state) => {return{galleryImages: state}}
+)(PageGallery)
 
 
 
@@ -71,7 +75,7 @@ ReactDOM.render((
 					<Route path="/about" component={AboutPageContents} />
 					<Route path="/contact" component={ContactPageContents} />
 				</Route>
-				<Route path="/gallery" component={PageGallery} />
+				<Route path="/gallery" component={PageGalleryContainer} />
 				<Route path="/artwork" component={PageArtworkContainer} />
 				<Route path="*" component={NotFound} />
 			</Route>

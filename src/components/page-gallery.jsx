@@ -7,29 +7,12 @@ const PageGallery = React.createClass({
 		console.log(thing);
 	},
 	render(){
-		const artThumb = (name, imageUrl) => {
-			return({
-				name: name,
-				imageUrl: imageUrl
-			})
-		}
-		const artThumbs = [
-			artThumb('kjdshf ka', 'http://lorempixel.com/160/160/abstract/1'),
-			artThumb('hkfjae keja', 'http://lorempixel.com/160/160/abstract/2'),
-			artThumb('gea', 'http://lorempixel.com/160/160/abstract/3'),
-			artThumb('kjd akka', 'http://lorempixel.com/160/160/abstract/4'),
-			artThumb('af la', 'http://lorempixel.com/160/160/abstract/5'),
-			artThumb('ejrhak a', 'http://lorempixel.com/160/160/abstract/6'),
-			artThumb('dkjhfka ka', 'http://lorempixel.com/160/160/abstract/7'),
-			artThumb('kjhafjhdfja ajhdajdjahd aj hdahdfaj agdfahdgfa', 'http://lorempixel.com/160/160/abstract/8'),
-			artThumb('jhh', 'http://lorempixel.com/160/160/abstract/9'),
-			artThumb('lklkjkj jagdf a', 'http://lorempixel.com/160/160/abstract/10'),
-		]
-		const artItems = artThumbs.map(function(artThumb, i){
+		const galleryImages = this.props.galleryImages
+		const artItems = galleryImages.map(function(artThumb, i){
 			return(
 				<li className="block-grid-item list-unstyled" key={i}>
 					<Link to="/artwork" className="block-link">
-						<img src={artThumb.imageUrl} />
+						<img src={artThumb.thumbUrl} />
 						<h3>{artThumb.name}</h3>
 					</Link>
 				</li>

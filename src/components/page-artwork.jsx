@@ -20,7 +20,7 @@ const PageArtwork = React.createClass({
 					<div className="col-xs-12">
 						<h3>{artwork.name}</h3>
 						<img src={artwork.url} />
-						<Lorem count="1"/>
+						<p>{artwork.text}</p>
 					</div>
 				</div>
 			</div>
