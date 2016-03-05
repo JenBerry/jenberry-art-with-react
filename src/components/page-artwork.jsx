@@ -1,13 +1,11 @@
 const React = require('react');
 const Link = require('react-router').Link;
 const Lorem = require('react-lorem-component');
-const connect = require('react-redux').connect;
-
 
 const PageArtwork = React.createClass({
 	render(){
 		const artwork = this.props.artwork;
-		console.log(artwork);
+		console.log('art:' + artwork);
 		if (typeof artwork == 'undefined' ){
 			return <h2>No artwork selected</h2>
 		}
@@ -30,12 +28,4 @@ const PageArtwork = React.createClass({
 	}
 });
 
-const mapStateToProps = (state) => {
-	return{
-		artwork: state[0]
-	}
-}
-
-const PageArtworkContainer = connect(mapStateToProps)(PageArtwork);
-
-module.exports = PageArtworkContainer;
+module.exports = PageArtwork;

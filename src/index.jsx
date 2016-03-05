@@ -21,50 +21,13 @@ const html = require('./index.html');
 const styles = require('./styles.less');
 
 
-const artReducer = (state = [], action) => {
-	switch (action.type){
-		case 'ADD_TEST_ART':
-			return [
-				...state,
-				{
-					name: "Test Art",
-					url: "http://lorempixel.com/518/750/abstract/1",
-					thumbUrl: "http://lorempixel.com/160/160/abstract/1",
-					gallery: "Artwork"
-				}
-			]
-		default:
-			return state;
-	}
-}
+const Page = require('./components/page.jsx');
+const PageContents = require('./components/page-contents.jsx');
+const PageGallery = require('./components/page-gallery.jsx');
+const PageArtwork = require('./components/page-artwork.jsx');
 
-
-const Page = React.createClass({
-	onClick(){
-		this.props.dispatch({ type: 'ADD_TEST_ART' });
-	},
-	render(){
-		return(
-		<div className="container">
-			<Header />
-			<button onClick={this.onClick}>click</button>
-			{ this.props.children }
-			<Footer />
-		</div>
-		);
-	}
-});
-const PageContainer = connect()(Page);
-
-
-const Header = require('./header.jsx');
-const Footer = require('./footer.jsx');
-const PageContents = require('./page-contents.jsx');
-const PageGallery = require('./page-gallery.jsx');
-const PageArtworkContainer = require('./page-artwork.jsx');
-
-const HomePageContents = require('./page-contents/home.jsx');
-const ArtPageContents = require('./page-contents/art.jsx');
+const HomePageContents = require('./components/home.jsx');
+const ArtPageContents = require('./components/art.jsx');
 let PricesPageContents
 let AboutPageContents
 let ContactPageContents
@@ -79,9 +42,24 @@ const NotFound = React.createClass({
 
 
 
+const PageContainer = connect(
+	null,
+	( dispatch ) => {
+		return{
+			onClick: () => dispatch({type: 'ADD_TEST_ART'})
+		}
+	}
+)(Page);
+const PageArtworkContainer = connect(
+	(state) => {return{artwork: state[0]}}
+)(PageArtwork);
+
+
+
+const appReducer = require('./reducers/art_reducer.js');
 ReactDOM.render((
 
-	<Provider store={Redux.createStore(artReducer)}>
+	<Provider store={Redux.createStore(appReducer)}>
 		<Router history={hashHistory}>
 			<Route path="/" component={PageContainer}>
 				<IndexRedirect to="/home" />
