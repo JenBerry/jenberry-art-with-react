@@ -30,10 +30,8 @@ const PageGallery = React.createClass({
 						<Lorem count="1"/>
 					</div>
 					<div className="col-xs-12 col-sm-9">
-						<div className="row">
-							<div className="block-grid-xs-2 block-grid-sm-3 block-grid-md-4" >
-								{artItems}
-							</div>
+						<div className="block-grid-xs-2 block-grid-sm-3 block-grid-md-4" >
+							{artItems}
 						</div>
 					</div>
 				</div>

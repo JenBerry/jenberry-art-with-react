@@ -56,17 +56,26 @@ const PageContainer = connect(
 )(Page);
 
 const PageArtworkContainer = connect(
-	(state) => {return{artwork: state.artworks[state.selectedArt]}}
+	(state) => {return{artwork: state.artReducer.artworks[state.artReducer.selectedArt]}}
 )(PageArtwork);
 
 const PageGalleryContainer = connect(
-	(state) => {return{galleryImages: state.artworks}},
+	(state) => {return{galleryImages: state.artReducer.artworks}},
 	(dispatch) => {return{
 		selectArt: (id) => {
 			dispatch({type:"SELECT_ART", id:id})
 		}
 	}}
-)(PageGallery)
+)(PageGallery);
+
+const ArtPageContentsContainer = connect(
+	(state) => {return{galleries: state.galleryReducer.galleries}},
+	(dispatch) => {return{
+		setGallery: (id) => {
+			dispatch({type:"SELECT_GALLERY", id:id})
+		}
+	}}
+)(ArtPageContents);
 
 
 
@@ -79,8 +88,8 @@ ReactDOM.render((
 				<IndexRedirect to="/home" />
 				<Route path="/home" component={PageContents}>
 					<IndexRoute component={HomePageContents} />
-					<Route path="/art" component={ArtPageContents} />
-					<Route path="/design" component={ArtPageContents} />
+					<Route path="/art" component={ArtPageContentsContainer} />
+					<Route path="/design" component={ArtPageContentsContainer} />
 					<Route path="/prices" component={PricesPageContents} />
 					<Route path="/about" component={AboutPageContents} />
 					<Route path="/contact" component={ContactPageContents} />
