@@ -60,9 +60,11 @@ const PageArtworkContainer = connect(
 )(PageArtwork);
 
 const PageGalleryContainer = connect(
-	(state) => {return{
-		galleryImages: state.artReducer.artworks,
-		currentGallery:  state.galleryReducer.galleries[state.galleryReducer.selectedGallery]
+	(state) => {
+		const currentGallery = state.galleryReducer.galleries[state.galleryReducer.selectedGallery]
+		return{
+		galleryImages: state.artReducer.artworks.filter(g => g.gallery === currentGallery.name),
+		currentGallery:  currentGallery
 	}},
 	(dispatch) => {return{
 		selectArt: (id) => {

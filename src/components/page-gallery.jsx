@@ -16,10 +16,7 @@ const PageGallery = React.createClass({
 			)
 		}
 
-		const currentGalleryImages = galleryImages.filter(g => g.gallery === currentGallery.name)
-		console.log(currentGalleryImages);
-
-		const artItems = currentGalleryImages.map((artThumb, i) => {
+		const artItems = galleryImages.map((artThumb, i) => {
 			return(
 				<li className="block-grid-item list-unstyled" key={i}>
 					<Link to="/artwork" className="block-link" onClick={this.selectArt.bind(this, artThumb.id)}>
