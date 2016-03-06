@@ -7,6 +7,8 @@ I am using bootstrap with LESS for the layout
 The primary goal of this is to learn how to use React, with secondary goals of becoming more familliar with npm, Webpack, Bootstrap and LESS
 In the past I have had more experience with Foundation and SASS, and a little bit of exposure to angular.
 
+Added Redux for data management
+
 #####Instructions:
 ```
 git clone https://github.com/JenBerry/jenberry-art-with-react.git

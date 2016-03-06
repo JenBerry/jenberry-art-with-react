@@ -4,6 +4,7 @@ const Footer = require('./footer.jsx');
 
 const Page = React.createClass({
 	onClick(){
+		console.log(this.props.state);
 		this.props.onClick();
 	},
 	render(){

@@ -40,22 +40,27 @@ const NotFound = React.createClass({
 });
 
 
-
+let artId = 0;
 const PageContainer = connect(
-	null,
+	( state ) => {
+		return{ state }
+	},
 	( dispatch ) => {
 		return{
-			onClick: () => dispatch({type: 'ADD_TEST_ART'})
+			onClick: () => {
+				dispatch({type: 'ADD_TEST_ART', id:artId})
+				artId++;
+			}
 		}
 	}
 )(Page);
 
 const PageArtworkContainer = connect(
-	(state) => {return{artwork: state[0]}}
+	(state) => {return{artwork: state.artworks[0]}}
 )(PageArtwork);
 
 const PageGalleryContainer = connect(
-	(state) => {return{galleryImages: state}}
+	(state) => {return{galleryImages: state.artworks}}
 )(PageGallery)
 
 

@@ -1,13 +1,17 @@
 const Lorem = require('react-lorem-component');
-const artReducer = (state = [], action) => {
+const artListReducer = (state = [], action) => {
 	switch (action.type){
 		case 'ADD_TEST_ART':
+			const width = Math.floor(Math.random()*500 + 500);
+			const height = Math.floor(Math.random()*500 + 500);
+			const picture = Math.floor(Math.random()*10);
 			return [
 				...state,
 				{
-					name: "Test Art",
-					url: "http://lorempixel.com/518/750/abstract/1",
-					thumbUrl: "http://lorempixel.com/160/160/abstract/1",
+					id: action.id,
+					name: "Test Art " + action.id,
+					url: `http://lorempixel.com/${width}/${height}/abstract/${picture}`,
+					thumbUrl: `http://lorempixel.com/160/160/abstract/${picture}`,
 					gallery: "Artwork",
 					text: "Sit nulla est ex deserunt exercitation anim occaecat. Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis."
 				}
@@ -16,5 +20,19 @@ const artReducer = (state = [], action) => {
 			return state;
 	}
 };
+
+const artReducer = (state = {}, action) => {
+	switch (action.type){
+		case 'ADD_TEST_ART':
+			return (
+				Object.assign({}, state, {
+					artworks: artListReducer(state.artworks, action)
+				})
+			);
+		default:
+			return state;
+		
+	}
+} 
 
 module.exports = artReducer;
