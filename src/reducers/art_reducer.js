@@ -21,7 +21,7 @@ const artListReducer = (state = [], action) => {
 	}
 };
 
-const artReducer = (state = {}, action) => {
+const artReducer = (state = {artworks:[]}, action) => {
 	switch (action.type){
 		case 'ADD_TEST_ART':
 			return (
@@ -29,6 +29,12 @@ const artReducer = (state = {}, action) => {
 					artworks: artListReducer(state.artworks, action)
 				})
 			);
+		case 'SELECT_ART':
+			return (
+				Object.assign({}, state, {
+					selectedArt: action.id
+				})
+			)
 		default:
 			return state;
 		

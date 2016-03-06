@@ -56,11 +56,16 @@ const PageContainer = connect(
 )(Page);
 
 const PageArtworkContainer = connect(
-	(state) => {return{artwork: state.artworks[0]}}
+	(state) => {return{artwork: state.artworks[state.selectedArt]}}
 )(PageArtwork);
 
 const PageGalleryContainer = connect(
-	(state) => {return{galleryImages: state.artworks}}
+	(state) => {return{galleryImages: state.artworks}},
+	(dispatch) => {return{
+		selectArt: (id) => {
+			dispatch({type:"SELECT_ART", id:id})
+		}
+	}}
 )(PageGallery)
 
 
