@@ -7,8 +7,19 @@ const PageGallery = React.createClass({
 		this.props.selectArt(id);
 	},
 	render(){
-		const galleryImages = this.props.galleryImages
-		const artItems = galleryImages.map((artThumb, i) => {
+		const galleryImages = this.props.galleryImages;
+		const currentGallery = this.props.currentGallery;
+
+		if (typeof currentGallery === 'undefined'){
+			return (
+				<h2>No gallery selected</h2>
+			)
+		}
+
+		const currentGalleryImages = galleryImages.filter(g => g.gallery === currentGallery.name)
+		console.log(currentGalleryImages);
+
+		const artItems = currentGalleryImages.map((artThumb, i) => {
 			return(
 				<li className="block-grid-item list-unstyled" key={i}>
 					<Link to="/artwork" className="block-link" onClick={this.selectArt.bind(this, artThumb.id)}>
@@ -22,7 +33,7 @@ const PageGallery = React.createClass({
 			<div>
 				<div className="row">
 					<div className="col-xs-12">
-						<h2>Art Gallery</h2>
+						<h2>Art Gallery: {currentGallery.name}</h2>
 					</div>
 				</div>
 				<div className="row">
