@@ -19,7 +19,7 @@ const PageArtwork = React.createClass({
 				<div className="row">
 					<div className="col-xs-12">
 						<h3>{artwork.name}</h3>
-						<img src={artwork.url} />
+						<img className="full-width" src={artwork.url} />
 						<p>{artwork.text}</p>
 					</div>
 				</div>
