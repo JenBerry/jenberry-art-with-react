@@ -10,15 +10,16 @@ const PageArtwork = React.createClass({
 	},
 	render(){
 		const artwork = this.props.artwork;
-		let gallery;
+		const galleries = this.props.galleries;
 		if (typeof artwork == 'undefined' ){
 			return <h2>No artwork selected</h2>
 		}
+		const gallery = galleries.find(g => g.slug === artwork.gallery);
 		return(
 			<div>
 				<div className="row">
 					<div className="col-xs-12">
-						<h2><Link to={"/gallery/" + gallery}>{artwork.gallery}</Link></h2>
+						<h2><Link to={"/gallery/" + gallery.slug}>{gallery.name}</Link></h2>
 					</div>
 				</div>
 				<div className="row">

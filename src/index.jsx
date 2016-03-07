@@ -58,7 +58,8 @@ const PageContainer = connect(
 const PageArtworkContainer = connect(
 	(state) => {
 		return{
-			artwork: state.artReducer.selectedArtObject
+			artwork: state.artReducer.selectedArtObject,
+			galleries: state.galleryReducer.galleries
 	}},
 	(dispatch) => {return{
 		setArt: (id) => {
@@ -69,9 +70,9 @@ const PageArtworkContainer = connect(
 
 const PageGalleryContainer = connect(
 	(state) => {
-		const currentGallery = state.galleryReducer.galleries.find(n => n.slug === state.galleryReducer.selectedGallerySlug)
+		const currentGallery = state.galleryReducer.selectedGalleryObject
 		return{
-		galleryImages: state.artReducer.artworks.filter(g => g.gallery === currentGallery.name),
+		galleryImages: state.artReducer.artworks.filter(g => g.gallery === currentGallery.slug),
 		currentGallery:  currentGallery
 	}},
 	(dispatch) => {return{

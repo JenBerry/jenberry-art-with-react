@@ -28,7 +28,7 @@ const artListReducer = (state = [], action) => {
 			const width = Math.floor(Math.random()*500 + 500);
 			const height = Math.floor(Math.random()*500 + 500);
 			const picture = Math.floor(Math.random()*9+1);
-			const galleryName = galleries[Math.floor(Math.random()*galleries.length)].name;
+			const gallerySlug = galleries[Math.floor(Math.random()*galleries.length)].slug;
 			return [
 				...state,
 				{
@@ -36,7 +36,7 @@ const artListReducer = (state = [], action) => {
 					name: "Test Art " + action.id,
 					url: `http://lorempixel.com/${width}/${height}/abstract/${picture}`,
 					thumbUrl: `http://lorempixel.com/160/160/abstract/${picture}`,
-					gallery: galleryName,
+					gallery: gallerySlug,
 					text: "Sit nulla est ex deserunt exercitation anim occaecat. Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis."
 				}
 			];
@@ -75,7 +75,7 @@ const galleryReducer = (state, action) =>{
 		console.log(action.type + ' ' + action.slug);
 			return(
 				Object.assign({}, state, {
-					selectedGallerySlug: action.slug
+					selectedGalleryObject: state.galleries.find(n => n.slug === action.slug)
 				})
 			);
 		default:
@@ -140,12 +140,12 @@ expect(
 )
 expect(
 	galleryReducer(
-		{galleries:galleries},
+		{galleries:[{slug: 'digital'}]},
 		{type:'SET_GALLERY_FROM_SLUG', slug:'digital'})
 ).toEqual(
 	{
-		galleries: galleries,
-		selectedGallerySlug: 'digital'
+		galleries:[{slug: 'digital'}],
+		selectedGalleryObject: {slug: 'digital'}
 	}
 );
 
