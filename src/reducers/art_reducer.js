@@ -1,5 +1,7 @@
 const Redux = require('redux');
 const Lorem = require('react-lorem-component');
+const expect = require('expect');
+
 const gallery = (id, name, slug, imageUrl) => {
 	return (
 		{
@@ -22,6 +24,7 @@ const galleries = [
 const artListReducer = (state = [], action) => {
 	switch (action.type){
 		case 'ADD_TEST_ART':
+			console.log(action.type + ' ' + action.id);
 			const width = Math.floor(Math.random()*500 + 500);
 			const height = Math.floor(Math.random()*500 + 500);
 			const picture = Math.floor(Math.random()*9+1);
@@ -45,7 +48,6 @@ const artListReducer = (state = [], action) => {
 const artReducer = (state = {artworks:[]}, action) => {
 	switch (action.type){
 		case 'ADD_TEST_ART':
-			console.log(action.type + ' ' + action.id);
 			return (
 				Object.assign({}, state, {
 					artworks: artListReducer(state.artworks, action)
@@ -55,7 +57,8 @@ const artReducer = (state = {artworks:[]}, action) => {
 			console.log(action.type + ' ' + action.id);
 			return (
 				Object.assign({}, state, {
-					selectedArt: action.id
+					selectedArt: action.id,
+					selectedArtObject: state.artworks[action.id]
 				})
 			)
 		default:
@@ -86,3 +89,83 @@ const appReducer = Redux.combineReducers({
 });
 
 module.exports = appReducer;
+
+console.log('testing');
+
+//test artListReducer
+expect(
+	artListReducer(undefined,{type:'OTHER'})
+).toEqual(
+	[]
+);
+
+expect(
+	artListReducer([],{type:'ADD_TEST_ART', id:0}).length
+).toEqual(
+	1
+);
+
+expect(
+	artListReducer([1,2],{type:'ADD_TEST_ART', id:2}).length
+).toEqual(
+	3
+);
+
+//test artReducer
+expect(
+	artReducer(undefined,{type:'OTHER'})
+).toEqual(
+	{artworks:[]}
+);
+expect(
+	artReducer({},{type: 'ADD_TEST_ART', id:0}).artworks.length
+).toEqual(
+	1
+);
+expect(
+	artReducer(
+		{artworks:[{hello:'foo'},2,3]},
+		{type:'SELECT_ART', id:0})
+).toEqual(
+	{
+		artworks:[{hello:'foo'},2,3],
+		selectedArt:0,
+		selectedArtObject:{hello:'foo'}
+	}
+);
+
+//test galleryReducer
+expect(
+	galleryReducer(undefined,{type:'OTHER'})
+).toEqual(
+	{galleries: galleries}
+)
+expect(
+	galleryReducer(
+		{galleries:galleries},
+		{type:'SET_GALLERY_FROM_SLUG', slug:'digital'})
+).toEqual(
+	{
+		galleries: galleries,
+		selectedGallerySlug: 'digital'
+	}
+);
+
+//test complete
+expect(
+	appReducer(undefined,{type:'OTHER'})
+).toEqual(
+	{
+		artReducer: {artworks:[]},
+		galleryReducer: {galleries: galleries}
+	}
+)
+
+
+console.log('tests passed');
+
+
+
+
+
+

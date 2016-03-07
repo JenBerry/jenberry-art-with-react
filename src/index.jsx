@@ -56,7 +56,14 @@ const PageContainer = connect(
 )(Page);
 
 const PageArtworkContainer = connect(
-	(state) => {return{artwork: state.artReducer.artworks[state.artReducer.selectedArt]}},
+	(state) => {
+		console.log("container gets selectedArtObject")
+		console.log(state.selectedArtObject)
+		return{
+		artwork: state.artReducer.artworks[state.artReducer.selectedArt],
+		artworkObject: state.selectedArtObject
+
+	}},
 	(dispatch) => {return{
 		setArt: (id) => {
 			dispatch({type:"SELECT_ART", id:id})
