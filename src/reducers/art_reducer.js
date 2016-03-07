@@ -45,12 +45,14 @@ const artListReducer = (state = [], action) => {
 const artReducer = (state = {artworks:[]}, action) => {
 	switch (action.type){
 		case 'ADD_TEST_ART':
+			console.log(action.type + ' ' + action.id);
 			return (
 				Object.assign({}, state, {
 					artworks: artListReducer(state.artworks, action)
 				})
 			);
 		case 'SELECT_ART':
+			console.log(action.type + ' ' + action.id);
 			return (
 				Object.assign({}, state, {
 					selectedArt: action.id
@@ -68,6 +70,7 @@ const galleryReducer = (state, action) =>{
 	}
 	switch (action.type){
 		case 'SET_GALLERY_FROM_SLUG' :
+		console.log(action.type + ' ' + action.slug);
 			return(
 				Object.assign({}, state, {
 					selectedGallerySlug: action.slug

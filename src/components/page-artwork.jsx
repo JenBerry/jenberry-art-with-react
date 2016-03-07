@@ -3,8 +3,14 @@ const Link = require('react-router').Link;
 const Lorem = require('react-lorem-component');
 
 const PageArtwork = React.createClass({
+	setArt(id){this.props.setArt(id)},
+	componentWillMount(){
+		const urlArt = this.props.params.artworkId;
+		this.setArt(urlArt);
+	},
 	render(){
 		const artwork = this.props.artwork;
+		let gallery;
 		console.log('art:' + artwork);
 		if (typeof artwork == 'undefined' ){
 			return <h2>No artwork selected</h2>
@@ -13,7 +19,7 @@ const PageArtwork = React.createClass({
 			<div>
 				<div className="row">
 					<div className="col-xs-12">
-						<h2><Link to="/gallery">{artwork.gallery}</Link></h2>
+						<h2><Link to={"/gallery/" + gallery}>{artwork.gallery}</Link></h2>
 					</div>
 				</div>
 				<div className="row">

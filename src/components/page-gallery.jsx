@@ -3,9 +3,6 @@ const Lorem = require('react-lorem-component');
 const Link = require('react-router').Link;
 
 const PageGallery = React.createClass({
-	selectArt(id){
-		this.props.selectArt(id);
-	},
 	setGallery(slug){
 		this.props.setGallery(slug);
 	},
@@ -26,7 +23,7 @@ const PageGallery = React.createClass({
 		const artItems = galleryImages.map((artThumb, i) => {
 			return(
 				<li className="block-grid-item list-unstyled" key={i}>
-					<Link to="/artwork" className="block-link" onClick={this.selectArt.bind(this, artThumb.id)}>
+					<Link to={"/artwork/" + artThumb.id} className="block-link">
 						<img src={artThumb.thumbUrl} />
 						<h3>{artThumb.name}</h3>
 					</Link>
