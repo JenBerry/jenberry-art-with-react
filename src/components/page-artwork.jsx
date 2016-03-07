@@ -10,10 +10,7 @@ const PageArtwork = React.createClass({
 	},
 	render(){
 		const artwork = this.props.artwork;
-		const artworkObject = this.props.artworkObject;
 		let gallery;
-		console.log('componenet art:' + artwork);
-		console.log('componenet art:object' + artworkObject);
 		if (typeof artwork == 'undefined' ){
 			return <h2>No artwork selected</h2>
 		}

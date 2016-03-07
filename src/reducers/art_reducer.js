@@ -57,7 +57,6 @@ const artReducer = (state = {artworks:[]}, action) => {
 			console.log(action.type + ' ' + action.id);
 			return (
 				Object.assign({}, state, {
-					selectedArt: action.id,
 					selectedArtObject: state.artworks[action.id]
 				})
 			)
@@ -129,7 +128,6 @@ expect(
 ).toEqual(
 	{
 		artworks:[{hello:'foo'},2,3],
-		selectedArt:0,
 		selectedArtObject:{hello:'foo'}
 	}
 );
@@ -151,7 +149,7 @@ expect(
 	}
 );
 
-//test complete
+//test complete reducer
 expect(
 	appReducer(undefined,{type:'OTHER'})
 ).toEqual(
