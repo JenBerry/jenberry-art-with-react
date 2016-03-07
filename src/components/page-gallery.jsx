@@ -6,6 +6,13 @@ const PageGallery = React.createClass({
 	selectArt(id){
 		this.props.selectArt(id);
 	},
+	setGallery(slug){
+		this.props.setGallery(slug);
+	},
+	componentWillMount(){
+		const urlGallery = this.props.params.gallery;
+		this.setGallery(urlGallery);
+	},
 	render(){
 		const galleryImages = this.props.galleryImages;
 		const currentGallery = this.props.currentGallery;

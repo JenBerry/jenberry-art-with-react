@@ -61,7 +61,7 @@ const PageArtworkContainer = connect(
 
 const PageGalleryContainer = connect(
 	(state) => {
-		const currentGallery = state.galleryReducer.galleries[state.galleryReducer.selectedGallery]
+		const currentGallery = state.galleryReducer.galleries.find(n => n.slug === state.galleryReducer.selectedGallerySlug)
 		return{
 		galleryImages: state.artReducer.artworks.filter(g => g.gallery === currentGallery.name),
 		currentGallery:  currentGallery
@@ -69,17 +69,15 @@ const PageGalleryContainer = connect(
 	(dispatch) => {return{
 		selectArt: (id) => {
 			dispatch({type:"SELECT_ART", id:id})
+		},
+		setGallery: (slug) => {
+			dispatch({type:"SET_GALLERY_FROM_SLUG", slug})
 		}
 	}}
 )(PageGallery);
 
 const ArtPageContentsContainer = connect(
-	(state) => {return{galleries: state.galleryReducer.galleries}},
-	(dispatch) => {return{
-		setGallery: (id) => {
-			dispatch({type:"SELECT_GALLERY", id:id})
-		}
-	}}
+	(state) => {return{galleries: state.galleryReducer.galleries}}
 )(ArtPageContents);
 
 
@@ -99,7 +97,7 @@ ReactDOM.render((
 					<Route path="/about" component={AboutPageContents} />
 					<Route path="/contact" component={ContactPageContents} />
 				</Route>
-				<Route path="/gallery" component={PageGalleryContainer} />
+				<Route path="/gallery/:gallery" component={PageGalleryContainer} />
 				<Route path="/artwork" component={PageArtworkContainer} />
 				<Route path="*" component={NotFound} />
 			</Route>

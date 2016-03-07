@@ -67,12 +67,12 @@ const galleryReducer = (state, action) =>{
 		state = {galleries: galleries};
 	}
 	switch (action.type){
-		case 'SELECT_GALLERY':
+		case 'SET_GALLERY_FROM_SLUG' :
 			return(
 				Object.assign({}, state, {
-					selectedGallery: action.id
+					selectedGallerySlug: action.slug
 				})
-			)
+			);
 		default:
 			return state;
 	}}
