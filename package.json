@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "Learning react",
   "main": "index.js",
+  "engines":{
+    "node": "5.6.0"
+  },
   "scripts": {
     "build": "webpack --progress --colors",
+    "postinstall": "webpack",
     "start": "webpack-dev-server --content-base ./build"
   },
   "repository": {
@@ -37,6 +41,7 @@
     "node-sass": "^3.4.2",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "react-lorem-component": "^0.10.0",
     "react-redux": "^4.4.0",
     "react-router": "^2.0.0",
     "redux": "^3.3.1",
@@ -47,7 +52,6 @@
     "webpack": "^1.12.13"
   },
   "devDependencies": {
-    "react-lorem-component": "^0.10.0",
     "webpack-dev-server": "^1.14.1"
   }
 }
