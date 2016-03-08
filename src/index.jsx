@@ -2,17 +2,8 @@ const ReactDOM = require('react-dom');
 const React = require('react');
 
 const Redux = require('redux');
-const ReactRedux = require('react-redux');
-const Provider = ReactRedux.Provider;
-const connect = ReactRedux.connect;
-
-const ReactRouter = require('react-router');
-const Router = ReactRouter.Router;
-const Route = ReactRouter.Route;
-const Link = ReactRouter.Link;
-const hashHistory = ReactRouter.hashHistory;
-const IndexRoute = ReactRouter.IndexRoute;
-const IndexRedirect = ReactRouter.IndexRedirect;
+const {Provider, connect} = require('react-redux');
+const {Router, Route, Link, hashHistory, IndexRoute, IndexRedirect} = require('react-router');
 
 const html = require('./index.html');
 // Uncomment to use Bootstrap javascript elements
@@ -30,6 +21,8 @@ const ArtPageContents = require('./components/art.jsx');
 let PricesPageContents
 let AboutPageContents
 let ContactPageContents
+
+const appReducer = require('./reducers/art_reducer.js');
 
 const NotFound = React.createClass({
 	render(){
@@ -72,8 +65,8 @@ const PageGalleryContainer = connect(
 	(state) => {
 		const currentGallery = state.galleryReducer.selectedGalleryObject
 		return{
-		galleryImages: state.artReducer.artworks.filter(g => g.gallery === currentGallery.slug),
-		currentGallery:  currentGallery
+			galleryImages: state.artReducer.artworks.filter(g => g.gallery === currentGallery.slug),
+			currentGallery:  currentGallery
 	}},
 	(dispatch) => {return{
 		setGallery: (slug) => {
@@ -88,7 +81,7 @@ const ArtPageContentsContainer = connect(
 
 
 
-const appReducer = require('./reducers/art_reducer.js');
+
 ReactDOM.render((
 
 	<Provider store={Redux.createStore(appReducer)}>
