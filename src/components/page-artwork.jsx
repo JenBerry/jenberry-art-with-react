@@ -10,11 +10,10 @@ const PageArtwork = React.createClass({
 	},
 	render(){
 		const artwork = this.props.artwork;
-		const galleries = this.props.galleries;
+		const gallery = this.props.gallery;
 		if (typeof artwork == 'undefined' ){
 			return <h2>No artwork selected</h2>
 		}
-		const gallery = galleries.find(g => g.slug === artwork.gallery);
 		return(
 			<div>
 				<div className="row">
@@ -27,6 +26,14 @@ const PageArtwork = React.createClass({
 						<h3>{artwork.name}</h3>
 						<img className="full-width" src={artwork.url} />
 						<p>{artwork.text}</p>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-xs-6">
+						<a className="btn btn-primary" href="">Previous</a>
+					</div>
+					<div className="col-xs-6 text-right">
+						<a className="btn btn-primary" href="">Next</a>
 					</div>
 				</div>
 			</div>
