@@ -13,7 +13,7 @@ const Page = React.createClass({
 	render(){
 		return(
 		<div className="container">
-			<Header />
+			<Header currentArtwork={this.props.currentArtwork} currentGallery={this.props.currentGallery} />
 			{ this.props.children }
 			<Footer />
 		</div>

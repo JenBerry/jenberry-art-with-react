@@ -22,7 +22,7 @@ let PricesPageContents
 let AboutPageContents
 let ContactPageContents
 
-const appReducer = require('./reducers/art_reducer.js');
+const appReducer = require('./reducers/app_reducer.js');
 
 const NotFound = React.createClass({
 	render(){
@@ -36,7 +36,11 @@ const NotFound = React.createClass({
 let artId = 0;
 const PageContainer = connect(
 	( state ) => {
-		return{ state }
+		return{
+			state,
+			currentArtwork: state.artReducer.selectedArtObject,
+			currentGallery: state.galleryReducer.selectedGalleryObject
+		}
 	},
 	( dispatch ) => {
 		return{
