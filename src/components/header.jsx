@@ -31,32 +31,28 @@ const Header = React.createClass({
 		let galleryBreadcrumb;
 		let artworkBreadcrumb;
 
-
-		let path = "none"
-		hashHistory.listen(ev => {
-			path = ev.pathname
-		});
-		if(path.match(/^\/\w*$/)){
+		let path
+		hashHistory.listen(ev => {path = ev.pathname});
+		if(path.match(/^\/\w*$/) && path !== '/home'){
 			pageBreadcrumb = createBreadcrumb(path.substring(1),path.substring(1)) 
 		}
-
-		if(typeof currentGallery !== 'undefined'){
+		if((path.match(/^\/gallery\//) || path.match(/^\/artwork\//)) && typeof currentGallery !== 'undefined'){
 			pageBreadcrumb = createBreadcrumb('art','Art')
 			galleryBreadcrumb = createBreadcrumb("gallery/" + currentGallery.slug,currentGallery.name)
 		}
-		if(typeof currentArtwork !== 'undefined'){
+		if(path.match(/^\/artwork\//) && typeof currentArtwork !== 'undefined'){
 			artworkBreadcrumb = createBreadcrumb("artwork/" + currentArtwork.id,currentArtwork.name)
 		}
 
 		return(
 			<header className="page-header">
+				{path}
 				<h1>Jen Berry </h1>
 				<nav>
 					<ul className="nav nav-pills">
 						{navItems}
 					</ul>
 				</nav>
-				{path}
 				<ol className="breadcrumb">
 					<li><Link to="home">Home</Link></li>
 					{pageBreadcrumb}

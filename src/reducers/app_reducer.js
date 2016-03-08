@@ -55,9 +55,13 @@ const artReducer = (state = {artworks:[]}, action) => {
 			);
 		case 'SELECT_ART':
 			console.log(action.type + ' ' + action.id);
+			let selectedArtObject;
+			if (action.id !== -1){
+				selectedArtObject = state.artworks[action.id]
+			}
 			return (
 				Object.assign({}, state, {
-					selectedArtObject: state.artworks[action.id]
+					selectedArtObject
 				})
 			)
 		default:
@@ -72,10 +76,14 @@ const galleryReducer = (state, action) =>{
 	}
 	switch (action.type){
 		case 'SET_GALLERY_FROM_SLUG' :
-		console.log(action.type + ' ' + action.slug);
+			console.log(action.type + ' ' + action.slug);
+			let selectedGalleryObject;
+			if (action.slug !== -1){
+				selectedGalleryObject = state.galleries.find(n => n.slug === action.slug)
+			}
 			return(
 				Object.assign({}, state, {
-					selectedGalleryObject: state.galleries.find(n => n.slug === action.slug)
+					selectedGalleryObject
 				})
 			);
 		default:
