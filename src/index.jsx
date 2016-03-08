@@ -40,9 +40,11 @@ const PageContainer = connect(
 	},
 	( dispatch ) => {
 		return{
-			onClick: () => {
-				dispatch({type: 'ADD_TEST_ART', id:artId})
-				artId++;
+			addDummyArt: () => {
+				for(let i=0; i<60; i++){
+					dispatch({type: 'ADD_TEST_ART', id:artId})
+					artId++;
+				}
 			}
 		}
 	}
@@ -65,7 +67,7 @@ const PageGalleryContainer = connect(
 	(state) => {
 		const currentGallery = state.galleryReducer.selectedGalleryObject
 		return{
-			galleryImages: state.artReducer.artworks.filter(g => g.gallery === currentGallery.slug),
+			galleryImages: state.artReducer.artworks,
 			currentGallery:  currentGallery
 	}},
 	(dispatch) => {return{

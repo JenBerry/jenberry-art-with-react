@@ -3,18 +3,17 @@ const Header = require('./header.jsx');
 const Footer = require('./footer.jsx');
 
 const Page = React.createClass({
-	onClick(){
-		this.props.onClick();
-	},
 	componentDidUpdate(){
 		console.log("state updated");
 		console.log(this.props.state);
+	},
+	componentWillMount(){
+		this.props.addDummyArt();
 	},
 	render(){
 		return(
 		<div className="container">
 			<Header />
-			<button onClick={this.onClick}>click</button>
 			{ this.props.children }
 			<Footer />
 		</div>

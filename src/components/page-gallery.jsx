@@ -11,7 +11,7 @@ const PageGallery = React.createClass({
 		this.setGallery(urlGallery);
 	},
 	render(){
-		const galleryImages = this.props.galleryImages;
+		let galleryImages = this.props.galleryImages;
 		const currentGallery = this.props.currentGallery;
 
 		if (typeof currentGallery === 'undefined'){
@@ -19,6 +19,8 @@ const PageGallery = React.createClass({
 				<h2>No gallery selected</h2>
 			)
 		}
+
+		galleryImages = galleryImages.filter(g => g.gallery === currentGallery.slug);
 
 		const artItems = galleryImages.map((artThumb, i) => {
 			return(
