@@ -45,7 +45,10 @@ const artListReducer = (state = [], action) => {
 	}
 };
 
-const artReducer = (state = {artworks:[]}, action) => {
+const artReducer = (state = {artworks:[], galleries:galleries}, action) => {
+	const getGallery = (galleries, slug) => {
+		return galleries.find(n => n.slug === slug)
+	}
 	switch (action.type){
 		case 'ADD_TEST_ART':
 			return (
@@ -53,49 +56,44 @@ const artReducer = (state = {artworks:[]}, action) => {
 					artworks: artListReducer(state.artworks, action)
 				})
 			);
-		case 'SELECT_ART':
+		case 'SELECT_ART':{
 			console.log(action.type + ' ' + action.id);
 			let selectedArtObject;
-			if (action.id !== -1){
+			let selectedGalleryObject = state.selectedGalleryObject;
+			if (typeof action.id !== 'undefined'){
 				selectedArtObject = state.artworks[action.id]
+				selectedGalleryObject = getGallery(state.galleries, selectedArtObject.gallery)
+				return (
+					Object.assign({}, state, {
+						selectedArtObject,
+						selectedGalleryObject
+					})
+				)
+			} else {
+				return state;
 			}
-			return (
-				Object.assign({}, state, {
-					selectedArtObject
-				})
-			)
+		}
+		case 'SET_GALLERY_FROM_SLUG' : {
+			console.log(action.type + ' ' + action.slug);
+			let selectedGalleryObject;
+			if (typeof action.slug !== 'undefined'){
+				selectedGalleryObject = getGallery(state.galleries, action.slug)
+				return(
+					Object.assign({}, state, {
+						selectedGalleryObject
+					})
+				);
+			} else {
+				return state;
+			}
+		}
 		default:
 			return state;
 		
 	}
 }
 
-const galleryReducer = (state, action) =>{
-	if (typeof state === 'undefined'){
-		state = {galleries: galleries};
-	}
-	switch (action.type){
-		case 'SET_GALLERY_FROM_SLUG' :
-			console.log(action.type + ' ' + action.slug);
-			let selectedGalleryObject;
-			if (action.slug !== -1){
-				selectedGalleryObject = state.galleries.find(n => n.slug === action.slug)
-			}
-			return(
-				Object.assign({}, state, {
-					selectedGalleryObject
-				})
-			);
-		default:
-			return state;
-	}}
-
-const appReducer = Redux.combineReducers({
-	artReducer,
-	galleryReducer
-});
-
-module.exports = appReducer;
+module.exports = artReducer;
 
 console.log('testing');
 
@@ -104,12 +102,6 @@ expect(
 	artListReducer(undefined,{type:'OTHER'})
 ).toEqual(
 	[]
-);
-
-expect(
-	artListReducer([],{type:'ADD_TEST_ART', id:0}).length
-).toEqual(
-	1
 );
 
 expect(
@@ -122,50 +114,70 @@ expect(
 expect(
 	artReducer(undefined,{type:'OTHER'})
 ).toEqual(
-	{artworks:[]}
+	{
+		artworks:[],
+		galleries: galleries
+	}
 );
+
 expect(
 	artReducer({},{type: 'ADD_TEST_ART', id:0}).artworks.length
 ).toEqual(
 	1
 );
+
 expect(
 	artReducer(
-		{artworks:[{hello:'foo'},2,3]},
+		{
+			artworks:[{gallery:'mySlug'},2,3],
+			galleries:[{slug: 'mySlug'}]
+		},
 		{type:'SELECT_ART', id:0})
 ).toEqual(
 	{
-		artworks:[{hello:'foo'},2,3],
-		selectedArtObject:{hello:'foo'}
+		artworks:[{gallery:'mySlug'},2,3,],
+		galleries: [{slug: 'mySlug'}],
+		selectedArtObject:{gallery:'mySlug'},
+		selectedGalleryObject:{slug:'mySlug'}
 	}
 );
 
-//test galleryReducer
 expect(
-	galleryReducer(undefined,{type:'OTHER'})
+	artReducer(
+		{
+			artworks:[],
+			galleries:[]
+		},
+		{type:'SELECT_ART'})
 ).toEqual(
-	{galleries: galleries}
-)
+	{
+		artworks:[],
+		galleries: [],
+	}
+);
+
 expect(
-	galleryReducer(
-		{galleries:[{slug: 'digital'}]},
+	artReducer(
+		{artworks:[], galleries:[{slug: 'digital'}]},
 		{type:'SET_GALLERY_FROM_SLUG', slug:'digital'})
 ).toEqual(
 	{
+		artworks:[],
 		galleries:[{slug: 'digital'}],
 		selectedGalleryObject: {slug: 'digital'}
 	}
 );
 
-//test complete reducer
 expect(
-	appReducer(undefined,{type:'OTHER'})
+	artReducer(
+		{artworks:[], galleries:[]},
+		{type:'SET_GALLERY_FROM_SLUG'})
 ).toEqual(
 	{
-		artReducer: {artworks:[]},
-		galleryReducer: {galleries: galleries}
+		artworks:[],
+		galleries:[],
 	}
-)
+);
 
 
 console.log('tests passed');

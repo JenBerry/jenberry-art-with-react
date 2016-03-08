@@ -38,8 +38,8 @@ const PageContainer = connect(
 	( state ) => {
 		return{
 			state,
-			currentArtwork: state.artReducer.selectedArtObject,
-			currentGallery: state.galleryReducer.selectedGalleryObject
+			currentArtwork: state.selectedArtObject,
+			currentGallery: state.selectedGalleryObject
 		}
 	},
 	( dispatch ) => {
@@ -57,11 +57,11 @@ const PageContainer = connect(
 const PageArtworkContainer = connect(
 	(state) => {
 		return{
-			artwork: state.artReducer.selectedArtObject,
-			galleries: state.galleryReducer.galleries
+			artwork: state.selectedArtObject,
+			galleries: state.galleries
 	}},
 	(dispatch) => {return{
-		setArt: (id = -1) => {
+		setArt: (id) => {
 			dispatch({type:"SELECT_ART", id:id})
 		}
 	}}
@@ -70,18 +70,18 @@ const PageArtworkContainer = connect(
 const PageGalleryContainer = connect(
 	(state) => {
 		return{
-			galleryImages: state.artReducer.artworks,
-			currentGallery:  state.galleryReducer.selectedGalleryObject
+			galleryImages: state.artworks,
+			currentGallery:  state.selectedGalleryObject
 	}},
 	(dispatch) => {return{
-		setGallery: (slug = -1) => {
+		setGallery: (slug) => {
 			dispatch({type:"SET_GALLERY_FROM_SLUG", slug})
 		}
 	}}
 )(PageGallery);
 
 const ArtPageContentsContainer = connect(
-	(state) => {return{galleries: state.galleryReducer.galleries}}
+	(state) => {return{galleries: state.galleries}}
 )(ArtPageContents);
 
 
