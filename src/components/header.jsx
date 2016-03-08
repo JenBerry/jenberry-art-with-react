@@ -4,22 +4,9 @@ const {hashHistory} = require('react-router');
 
 const Header = React.createClass({
 	render(){
-		const navItems = [
-			'home',
-			'art',
-			'design',
-			'prices',
-			'about',
-			'contact'
-		].map(function(pageName, i){
-			return (
-				<li key={i}>
-					<Link to={pageName} activeClassName="active" onlyActiveOnIndex={true}>{pageName}</Link>
-				</li>
-			)
-		}, this);
-
-
+		let path
+		hashHistory.listen(ev => {path = ev.pathname});
+		let currentNav = 'home';
 
 		const currentGallery = this.props.currentGallery;
 		const currentArtwork = this.props.currentArtwork;
@@ -31,18 +18,37 @@ const Header = React.createClass({
 		let galleryBreadcrumb;
 		let artworkBreadcrumb;
 
-		let path
-		hashHistory.listen(ev => {path = ev.pathname});
+		if(path === '/home'){
+			currentNav = 'home';
+		}
 		if(path.match(/^\/\w*$/) && path !== '/home'){
-			pageBreadcrumb = createBreadcrumb(path.substring(1),path.substring(1)) 
+			currentNav = path.substring(1);
+			pageBreadcrumb = createBreadcrumb(path.substring(1),path.substring(1));
 		}
 		if((path.match(/^\/gallery\//) || path.match(/^\/artwork\//)) && typeof currentGallery !== 'undefined'){
-			pageBreadcrumb = createBreadcrumb('art','Art')
-			galleryBreadcrumb = createBreadcrumb("gallery/" + currentGallery.slug,currentGallery.name)
+			currentNav = 'art';
+			pageBreadcrumb = createBreadcrumb('art','Art');
+			galleryBreadcrumb = createBreadcrumb("gallery/" + currentGallery.slug,currentGallery.name);
 		}
 		if(path.match(/^\/artwork\//) && typeof currentArtwork !== 'undefined'){
-			artworkBreadcrumb = createBreadcrumb("artwork/" + currentArtwork.id,currentArtwork.name)
+			artworkBreadcrumb = createBreadcrumb("artwork/" + currentArtwork.id,currentArtwork.name);
 		}
+
+
+		const navItems = [
+			'home',
+			'art',
+			'design',
+			'prices',
+			'about',
+			'contact'
+		].map(function(pageName, i){
+			return (
+				<li key={i} className={pageName === currentNav ? 'active': ''}>
+					<Link to={pageName}>{pageName}</Link>
+				</li>
+			)
+		}, this);
 
 		return(
 			<header className="page-header">
