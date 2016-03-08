@@ -9,7 +9,7 @@
   "scripts": {
     "build": "webpack --progress --colors",
     "postinstall": "webpack",
-    "start": "webpack-dev-server --content-base ./build"
+    "startdev": "webpack-dev-server --content-base ./build"
   },
   "repository": {
     "type": "git",
