@@ -1,6 +1,7 @@
 const React = require('react');
 const Link = require('react-router').Link;
 const Lorem = require('react-lorem-component');
+const ImageLoader = require('react-imageloader');
 
 const PageArtwork = React.createClass({
 	setArt(){
@@ -24,7 +25,10 @@ const PageArtwork = React.createClass({
 		if (typeof nextArt !== 'undefined'){
 			nextButton = (
 				<Link to={"artwork/"+nextArt.id} className="block-link" href="">
-					<img src={nextArt.thumbUrl} />
+					<ImageLoader src={nextArt.thumbUrl}
+								 preloader={()=><span>Loading...</span>} >
+						<span>Problem loading thumbnail</span>
+					</ImageLoader>
 					<p>Next</p>
 				</Link>
 			)
@@ -33,7 +37,10 @@ const PageArtwork = React.createClass({
 		if (typeof prevArt !== 'undefined'){
 			prevButton = (
 				<Link to={"artwork/"+prevArt.id} className="block-link" href="">
-					<img src={prevArt.thumbUrl} />
+					<ImageLoader src={prevArt.thumbUrl}
+								 preloader={()=><span>Loading...</span>}>
+						<span>Problem loading thumbnail</span>
+					</ImageLoader>
 					<p>Previous</p>
 				</Link>
 			)
@@ -48,7 +55,11 @@ const PageArtwork = React.createClass({
 				<div className="row">
 					<div className="col-xs-12">
 						<h3>{artwork.name}</h3>
-						<img className="full-width" src={artwork.url} />
+						<ImageLoader imgProps={{className:"full-width"}} 
+									 src={artwork.url}
+									 preloader={()=><span>Loading...</span>}>
+							<span>Problem Loading artwork</span>
+						</ImageLoader>
 						<p>{artwork.text}</p>
 					</div>
 				</div>
