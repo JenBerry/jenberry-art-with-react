@@ -58,7 +58,9 @@ const PageArtworkContainer = connect(
 	(state) => {
 		return{
 			artwork: state.selectedArtObject,
-			gallery: state.selectedGalleryObject
+			gallery: state.selectedGalleryObject,
+			nextArt: state.nextArtObject,
+			prevArt: state.prevArtObject
 	}},
 	(dispatch) => {return{
 		setArt: (id) => {

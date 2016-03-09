@@ -58,15 +58,20 @@ const artReducer = (state = {artworks:[], galleries:galleries}, action) => {
 			);
 		case 'SELECT_ART':{
 			console.log(action.type + ' ' + action.id);
-			let selectedArtObject;
-			let selectedGalleryObject = state.selectedGalleryObject;
 			if (typeof action.id !== 'undefined'){
-				selectedArtObject = state.artworks[action.id]
-				selectedGalleryObject = getGallery(state.galleries, selectedArtObject.gallery)
+				const selectedArtObject = state.artworks[action.id];
+				const selectedGalleryObject = getGallery(state.galleries, selectedArtObject.gallery);
+				const artworksInGallery = state.artworks.filter(a => a.gallery === selectedArtObject.gallery);
+				const positionOfSelectedArt = artworksInGallery.findIndex(a => a === selectedArtObject);
+				let nextArtObject = artworksInGallery[positionOfSelectedArt+1];
+				let prevArtObject = artworksInGallery[positionOfSelectedArt-1];
+
 				return (
 					Object.assign({}, state, {
 						selectedArtObject,
-						selectedGalleryObject
+						selectedGalleryObject,
+						nextArtObject,
+						prevArtObject
 					})
 				)
 			} else {
@@ -129,16 +134,26 @@ expect(
 expect(
 	artReducer(
 		{
-			artworks:[{gallery:'mySlug'},2,3],
-			galleries:[{slug: 'mySlug'}]
+			artworks:[
+				{name:'wa wa', gallery:'mySlug'},
+				{name:'wee wee', gallery:'toilet'},
+				{name:'ho ho',gallery:'mySlug'},
+			],
+			galleries:[{slug: 'mySlug'}, {slug: 'toilet'}]
 		},
 		{type:'SELECT_ART', id:0})
 ).toEqual(
 	{
-		artworks:[{gallery:'mySlug'},2,3,],
-		galleries: [{slug: 'mySlug'}],
-		selectedArtObject:{gallery:'mySlug'},
-		selectedGalleryObject:{slug:'mySlug'}
+		artworks:[
+			{name:'wa wa', gallery:'mySlug'},
+			{name:'wee wee', gallery:'toilet'},
+			{name:'ho ho',gallery:'mySlug'},
+		],
+		galleries:[{slug: 'mySlug'}, {slug: 'toilet'}],
+		selectedArtObject:{name:'wa wa', gallery:'mySlug'},
+		selectedGalleryObject:{slug:'mySlug'},
+		nextArtObject: {name:'ho ho',gallery:'mySlug'},
+		prevArtObject: undefined
 	}
 );
 
