@@ -23,13 +23,19 @@ const PageArtwork = React.createClass({
 		let nextButton
 		if (typeof nextArt !== 'undefined'){
 			nextButton = (
-				<Link to={"artwork/"+nextArt.id} className="btn btn-primary" href="">Next</Link>
+				<Link to={"artwork/"+nextArt.id} className="block-link" href="">
+					<img src={nextArt.thumbUrl} />
+					<p>Next</p>
+				</Link>
 			)
 		}
 		let prevButton
 		if (typeof prevArt !== 'undefined'){
 			prevButton = (
-				<Link to={"artwork/"+prevArt.id} className="btn btn-primary" href="">Previous</Link>
+				<Link to={"artwork/"+prevArt.id} className="block-link" href="">
+					<img src={prevArt.thumbUrl} />
+					<p>Previous</p>
+				</Link>
 			)
 		}
 		return(
