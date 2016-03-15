@@ -46,7 +46,7 @@ const PageContainer = connect(
 	( dispatch ) => {
 		return{
 			addDummyArt: () => {
-				for(let i=0; i<20; i++){
+				for(let i=0; i<30; i++){
 					dispatch({type: 'ADD_TEST_ART', id:artId})
 					artId++;
 				}
@@ -59,7 +59,17 @@ const PageContainer = connect(
 					slug: 'abstract',
 					imageUrl: 'http://lorempixel.com/496/89/abstract/1',
 					mainCategory: 'Artwork',
-					subCategory: undefined
+					subCategory: 'New'
+				});
+				gallertId ++
+				dispatch({
+					type: 'ADD_GALLERY',
+					id: gallertId,
+					name: "Traditional Art",
+					slug: 'traditional',
+					imageUrl: 'http://lorempixel.com/496/89/abstract/3',
+					mainCategory: 'Artwork',
+					subCategory: 'New'
 				});
 				gallertId ++
 				dispatch({
@@ -69,7 +79,7 @@ const PageContainer = connect(
 					slug: 'digital',
 					imageUrl: 'http://lorempixel.com/496/89/abstract/2',
 					mainCategory: 'Artwork',
-					subCategory: undefined
+					subCategory: 'Old Stuff'
 				});
 				gallertId ++
 			}
