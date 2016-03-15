@@ -14,5 +14,11 @@ const ThumbButton = (props) => {
 	);
 };
 
+ThumbButton.propTypes = {
+	art: React.PropTypes.shape({
+		id: React.PropTypes.number,
+		thumbUrl: React.PropTypes.string
+	}).isRequired
+};
 
 module.exports = ThumbButton;
