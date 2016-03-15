@@ -3,6 +3,8 @@ const Link = require('react-router').Link;
 const Lorem = require('react-lorem-component');
 const ImageLoader = require('react-imageloader');
 
+const ThumbButton = require('./thumb-button.jsx');
+
 const PageArtwork = React.createClass({
 	setArt(){
 		this.props.setArt(this.props.params.artworkId)
@@ -24,25 +26,17 @@ const PageArtwork = React.createClass({
 		let nextButton
 		if (typeof nextArt !== 'undefined'){
 			nextButton = (
-				<Link to={"artwork/"+nextArt.id} className="block-link" href="">
-					<ImageLoader src={nextArt.thumbUrl}
-								 preloader={()=><span>Loading...</span>} >
-						<span>Problem loading thumbnail</span>
-					</ImageLoader>
-					<p>Next</p>
-				</Link>
+				<ThumbButton art={nextArt}>
+					Next
+				</ThumbButton>
 			)
 		}
 		let prevButton
 		if (typeof prevArt !== 'undefined'){
 			prevButton = (
-				<Link to={"artwork/"+prevArt.id} className="block-link" href="">
-					<ImageLoader src={prevArt.thumbUrl}
-								 preloader={()=><span>Loading...</span>}>
-						<span>Problem loading thumbnail</span>
-					</ImageLoader>
-					<p>Previous</p>
-				</Link>
+				<ThumbButton art={prevArt}>
+					Previous
+				</ThumbButton>
 			)
 		}
 		return(

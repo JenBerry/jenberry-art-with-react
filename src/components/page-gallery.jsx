@@ -1,6 +1,7 @@
 const React = require('react');
 const Lorem = require('react-lorem-component');
 const Link = require('react-router').Link;
+const ThumbButton = require('./thumb-button.jsx');
 
 const PageGallery = React.createClass({
 	setGallery(slug){
@@ -25,10 +26,9 @@ const PageGallery = React.createClass({
 		const artItems = galleryImages.map((artThumb, i) => {
 			return(
 				<li className="block-grid-item list-unstyled" key={i}>
-					<Link to={"/artwork/" + artThumb.id} className="block-link">
-						<img src={artThumb.thumbUrl} />
+					<ThumbButton art={artThumb}>
 						<h3>{artThumb.name}</h3>
-					</Link>
+					</ThumbButton>
 				</li>
 			)
 		}, this);
