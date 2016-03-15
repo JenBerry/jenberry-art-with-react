@@ -9,9 +9,10 @@ const ThumbButton = (props) => {
 						 preloader={()=><span>Loading...</span>} >
 				<span>Problem loading thumbnail</span>
 			</ImageLoader>
-			<p>{props.children}</p>
+			{props.children}
 		</Link>
 	);
 };
+
 
 module.exports = ThumbButton;

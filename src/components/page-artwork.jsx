@@ -27,7 +27,7 @@ const PageArtwork = React.createClass({
 		if (typeof nextArt !== 'undefined'){
 			nextButton = (
 				<ThumbButton art={nextArt}>
-					Next
+					<p>Next</p>
 				</ThumbButton>
 			)
 		}
@@ -35,7 +35,7 @@ const PageArtwork = React.createClass({
 		if (typeof prevArt !== 'undefined'){
 			prevButton = (
 				<ThumbButton art={prevArt}>
-					Previous
+					<p>Previous</p>
 				</ThumbButton>
 			)
 		}
