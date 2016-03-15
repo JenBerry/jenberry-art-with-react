@@ -13,7 +13,8 @@ const PageArtwork = React.createClass({
 		this.setArt();
 	},
 	componentDidUpdate(){
-		this.setArt();
+		if (this.props.params.artworkId !==  String(this.props.artwork.id))
+		{this.setArt();}
 	},
 	render(){
 		const artwork = this.props.artwork;
