@@ -31,18 +31,24 @@ const artListReducer = (state = [], action) => {
 	}
 };
 
-const artReducer = (state = {artworks:[]}, action) => {
-	//must create a dummy gallery if no galleries exist
-	if (typeof state.galleries === 'undefined'){
-		state.galleries = [{
-			id: 0,
-			name: 'Name',
-			slug: 'slug',
-			imageUrl: '',
-			mainCategory: 'Main Category',
-			subCategory: 'Sub Category'
-		}];
+const galleryListReducer = (state = [], action) =>{
+	switch (action.type){
+		case 'ADD_GALLERY':
+			return [
+				...state,
+				{
+					id: action.id,
+					name: action.name,
+					slug: action.slug,
+					imageUrl: action.imageUrl,
+					mainCategory: action.mainCategory,
+					subCategory: action.subCategory
+				}
+			];
+		default: return state;	
 	}
+};
+const artReducer = (state = {artworks:[]}, action) => {
 	const getGallery = (galleries, slug) => {
 		return galleries.find(n => n.slug === slug);
 	};
@@ -77,6 +83,16 @@ const artReducer = (state = {artworks:[]}, action) => {
 			} else {
 				return state;
 			}
+		}
+		case 'ADD_GALLERY' : {
+			return (
+				Object.assign({}, state, {
+					galleries: galleryListReducer(
+						state.galleries,
+						action
+					)
+				})
+			);
 		}
 		case 'SET_GALLERY_FROM_SLUG' : {
 			console.log(action.type + ' ' + action.slug);
@@ -130,21 +146,42 @@ console.log('testing');
 		'x'
 	);
 
+//test galleryListReducer
+	//test default behaviour
+	expect(
+		galleryListReducer(undefined,{type:'OTHER'})
+	).toEqual(
+		[]
+	);
+
+	//test adding a gallery
+	expect(
+		galleryListReducer([],{
+			type:'ADD_GALLERY',
+			id: 0,
+			name: 'Test',
+			slug: 'test',
+			imageUrl: '',
+			mainCategory: 'Test',
+		})
+	).toEqual(
+		[{
+			id: 0,
+			name: 'Test',
+			slug: 'test',
+			imageUrl: '',
+			mainCategory: 'Test',
+			subCategory: undefined
+		}]
+	);
+
 //test artReducer
 	//test default behaviour
 	expect(
 		artReducer(undefined,{type:'OTHER'})
 	).toEqual(
 		{
-			artworks:[],
-			galleries: [{
-				id: 0,
-				name: 'Name',
-				slug: 'slug',
-				imageUrl: '',
-				mainCategory: 'Main Category',
-				subCategory: 'Sub Category'
-			}]
+			artworks:[]
 		}
 	);
 
@@ -158,6 +195,33 @@ console.log('testing');
 		1
 	);
 
+	//test passing through to galleryListReducer
+	expect(
+		artReducer(
+			{galleries:[]},
+			{
+				type: 'ADD_GALLERY',
+				id: 0,
+				name: 'Test',
+				slug: 'test',
+				imageUrl: '',
+				mainCategory: 'Test',
+			}
+		)
+	).toEqual(
+		{
+			galleries: [
+				{
+					id: 0,
+					name: 'Test',
+					slug: 'test',
+					imageUrl: '',
+					mainCategory: 'Test',
+					subCategory: undefined
+				}
+			]
+		}
+	);
 	//test selecting an artwork
 	expect(
 		artReducer(

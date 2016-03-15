@@ -34,6 +34,7 @@ const NotFound = React.createClass({
 
 
 let artId = 0;
+let gallertId = 0;
 const PageContainer = connect(
 	( state ) => {
 		return{
@@ -45,10 +46,32 @@ const PageContainer = connect(
 	( dispatch ) => {
 		return{
 			addDummyArt: () => {
-				for(let i=0; i<60; i++){
+				for(let i=0; i<20; i++){
 					dispatch({type: 'ADD_TEST_ART', id:artId})
 					artId++;
 				}
+			},
+			addDummyGallery: () =>{
+				dispatch({
+					type: 'ADD_GALLERY',
+					id: gallertId,
+					name: "Abstract Art",
+					slug: 'abstract',
+					imageUrl: 'http://lorempixel.com/496/89/abstract/1',
+					mainCategory: 'Artwork',
+					subCategory: undefined
+				});
+				gallertId ++
+				dispatch({
+					type: 'ADD_GALLERY',
+					id: gallertId,
+					name: "Digital Art",
+					slug: 'digital',
+					imageUrl: 'http://lorempixel.com/496/89/abstract/2',
+					mainCategory: 'Artwork',
+					subCategory: undefined
+				});
+				gallertId ++
 			}
 		}
 	}
