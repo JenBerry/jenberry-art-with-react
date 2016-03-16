@@ -8,7 +8,7 @@
   },
   "scripts": {
     "postinstall": "webpack --progress --colors",
-    "start": "node server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
