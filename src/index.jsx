@@ -2,7 +2,7 @@ const ReactDOM = require('react-dom');
 const React = require('react');
 
 const Redux = require('redux');
-const {Provider, connect} = require('react-redux');
+const {Provider} = require('react-redux');
 const {Router, Route, Link, hashHistory, IndexRoute, IndexRedirect} = require('react-router');
 
 const html = require('./index.html');
@@ -11,18 +11,19 @@ const html = require('./index.html');
 	// const bootstrap = require('bootstrap-webpack');
 const styles = require('./styles.less');
 
-const Page = require('./components/page.jsx');
-const PageContents = require('./components/page-contents.jsx');
-const PageGallery = require('./components/page-gallery.jsx');
-const PageArtwork = require('./components/page-artwork.jsx');
 
+const PageContents = require('./components/page-contents.jsx');
 const HomePageContents = require('./components/home.jsx');
-const ArtPageContents = require('./components/art.jsx');
 let PricesPageContents
 let AboutPageContents
 let ContactPageContents
+const {
+	PageContainer, 
+	PageArtworkContainer, 
+	PageGalleryContainer, 
+	ArtPageContentsContainer
+} = require('./containers/containers.js')
 
-const appReducer = require('./reducers/app_reducer.js');
 
 const NotFound = React.createClass({
 	render(){
@@ -32,95 +33,7 @@ const NotFound = React.createClass({
 	}
 });
 
-
-let artId = 0;
-let gallertId = 0;
-const PageContainer = connect(
-	( state ) => {
-		return{
-			state,
-			currentArtwork: state.selectedArtObject,
-			currentGallery: state.selectedGalleryObject
-		}
-	},
-	( dispatch ) => {
-		return{
-			addDummyArt: () => {
-				for(let i=0; i<30; i++){
-					dispatch({type: 'ADD_TEST_ART', id:artId})
-					artId++;
-				}
-			},
-			addDummyGallery: () =>{
-				dispatch({
-					type: 'ADD_GALLERY',
-					id: gallertId,
-					name: "Abstract Art",
-					slug: 'abstract',
-					imageUrl: 'http://lorempixel.com/496/89/abstract/1',
-					mainCategory: 'Artwork',
-					subCategory: 'New'
-				});
-				gallertId ++
-				dispatch({
-					type: 'ADD_GALLERY',
-					id: gallertId,
-					name: "Traditional Art",
-					slug: 'traditional',
-					imageUrl: 'http://lorempixel.com/496/89/abstract/3',
-					mainCategory: 'Artwork',
-					subCategory: 'New'
-				});
-				gallertId ++
-				dispatch({
-					type: 'ADD_GALLERY',
-					id: gallertId,
-					name: "Digital Art",
-					slug: 'digital',
-					imageUrl: 'http://lorempixel.com/496/89/abstract/2',
-					mainCategory: 'Artwork',
-					subCategory: 'Old Stuff'
-				});
-				gallertId ++
-			}
-		}
-	}
-)(Page);
-
-const PageArtworkContainer = connect(
-	(state) => {
-		return{
-			artwork: state.selectedArtObject,
-			gallery: state.selectedGalleryObject,
-			nextArt: state.nextArtObject,
-			prevArt: state.prevArtObject
-	}},
-	(dispatch) => {return{
-		setArt: (id) => {
-			dispatch({type:"SELECT_ART", id:id})
-		}
-	}}
-)(PageArtwork);
-
-const PageGalleryContainer = connect(
-	(state) => {
-		return{
-			galleryImages: state.artworks,
-			currentGallery:  state.selectedGalleryObject
-	}},
-	(dispatch) => {return{
-		setGallery: (slug) => {
-			dispatch({type:"SET_GALLERY_FROM_SLUG", slug})
-		}
-	}}
-)(PageGallery);
-
-const ArtPageContentsContainer = connect(
-	(state) => {return{galleries: state.galleries}}
-)(ArtPageContents);
-
-
-
+const appReducer = require('./reducers/app_reducer.js');
 
 ReactDOM.render((
 
