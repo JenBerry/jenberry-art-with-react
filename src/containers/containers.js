@@ -1,4 +1,5 @@
 const {connect} = require('react-redux');
+const data = require('../data.js');
 
 const Page = require('../components/page.jsx');
 const PageArtwork = require('../components/page-artwork.jsx');
@@ -17,35 +18,32 @@ const PageContainer = connect(
 	},
 	( dispatch ) => {
 		return{
-			addDummyArt: () => {
-				for(let i=0; i<30; i++){
-					dispatch(actions.addDummyArt())
-				}
+			initialiseGalleries: ()=>{
+				for (let n in data.galleries){
+					const gallery = data.galleries[n];
+					dispatch(actions.addGallery({
+						name: gallery.name,
+						slug: gallery.slug,
+						imageUrl: 'http://lorempixel.com/496/89/abstract/2',
+						mainCategory: gallery.mainCategory
+					}))
+				};
 			},
-			addDummyGallery: () =>{
-				dispatch(actions.addGallery({
-					name: "Abstract Art",
-					slug: 'abstract',
-					imageUrl: 'http://lorempixel.com/496/89/abstract/1',
-					mainCategory: 'Artwork',
-					subCategory: 'New'
-				}));
-				dispatch(actions.addGallery({
-					name: "Traditional Art",
-					slug: 'traditional',
-					imageUrl: 'http://lorempixel.com/496/89/abstract/3',
-					mainCategory: 'Artwork',
-					subCategory: 'New'
-				}));
-				dispatch(actions.addGallery({
-					name: "Digital Art",
-					slug: 'digital',
-					imageUrl: 'http://lorempixel.com/496/89/abstract/2',
-					mainCategory: 'Artwork',
-					subCategory: 'Old Stuff'
-				}));
+			initialiseArt: () =>{
+				for (let n in data.artworks){
+					const artwork = data.artworks[n];
+					dispatch(actions.addArt({
+						slug: artwork.slug,
+						name: artwork.name,
+						url: artwork.url,
+						thumbUrl: artwork.thumbUrl,
+						gallery: artwork.gallery,
+						text: artwork.text
+					}));
+				};
 			}
-		}
+
+		};
 	}
 )(Page);
 

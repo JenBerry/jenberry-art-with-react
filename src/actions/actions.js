@@ -1,14 +1,14 @@
 let artId = 0;
 let galleryId = 0;
 
-const addDummyArt = () => {
-	const action = {
-		type: 'ADD_TEST_ART',
-		id:artId
-	};
-	artId++;
-	return action;
-}
+// const addDummyArt = () => {
+// 	const action = {
+// 		type: 'ADD_TEST_ART',
+// 		id:artId
+// 	};
+// 	artId++;
+// 	return action;
+// }
 
 const addGallery = ({name, slug, imageUrl, mainCategory, subCategory}) => {
 	const action = {
@@ -21,6 +21,21 @@ const addGallery = ({name, slug, imageUrl, mainCategory, subCategory}) => {
 		subCategory
 	};
 	galleryId ++;
+	return action;
+}
+
+const addArt = ({slug, name, url, thumbUrl, gallery, text}) => {
+	const action = {
+		type: 'ADD_ART',
+		id: artId,
+		slug,
+		name,
+		url,
+		thumbUrl,
+		gallery,
+		text
+	};
+	artId++;
 	return action;
 }
 
@@ -39,8 +54,9 @@ const setGallery = (slug) => {
 }
 
 module.exports = {
-	addDummyArt,
+	// addDummyArt,
 	addGallery,
+	addArt,
 	selectArt,
 	setGallery
 }

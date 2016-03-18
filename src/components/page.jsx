@@ -8,8 +8,8 @@ const Page = React.createClass({
 		console.log(this.props.state);
 	},
 	componentWillMount(){
-		this.props.addDummyGallery();
-		this.props.addDummyArt();
+		this.props.initialiseGalleries();
+		this.props.initialiseArt();
 	},
 	render(){
 		return(

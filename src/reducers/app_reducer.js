@@ -2,28 +2,41 @@
 const Redux = require('redux');
 const Lorem = require('react-lorem-component');
 const expect = require('expect');
+// const reducer = require('./reducer.js');
 
 const artListReducer = (state = [], action) => {
 	switch (action.type){
-		case 'ADD_TEST_ART':
-			console.log(action.type + ' ' + action.id);
-			const width = Math.floor(Math.random()*500 + 500);
-			const height = Math.floor(Math.random()*500 + 500);
-			const picture = Math.floor(Math.random()*9+1);
-			let gallerySlug;
-			if (typeof action.galleries !== 'undefined'){
-				const randomGallery = Math.floor(Math.random()*action.galleries.length);
-				gallerySlug = action.galleries[randomGallery].slug;
-			}
+		// case 'ADD_TEST_ART':
+		// 	console.log(action.type + ' ' + action.id);
+		// 	const width = Math.floor(Math.random()*500 + 500);
+		// 	const height = Math.floor(Math.random()*500 + 500);
+		// 	const picture = Math.floor(Math.random()*9+1);
+		// 	let gallerySlug;
+		// 	if (typeof action.galleries !== 'undefined'){
+		// 		const randomGallery = Math.floor(Math.random()*action.galleries.length);
+		// 		gallerySlug = action.galleries[randomGallery].slug;
+		// 	}
+		// 	return [
+		// 		...state,
+		// 		{
+		// 			id: action.id,
+		// 			name: "Test Art " + action.id,
+		// 			url: `http://lorempixel.com/${width}/${height}/abstract/${picture}`,
+		// 			thumbUrl: `http://lorempixel.com/160/160/abstract/${picture}`,
+		// 			gallery: gallerySlug,
+		// 			text: "Sit nulla est ex deserunt exercitation anim occaecat. Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis."
+		// 		}
+		// 	];
+		case 'ADD_ART':
 			return [
 				...state,
 				{
-					id: action.id,
-					name: "Test Art " + action.id,
-					url: `http://lorempixel.com/${width}/${height}/abstract/${picture}`,
-					thumbUrl: `http://lorempixel.com/160/160/abstract/${picture}`,
-					gallery: gallerySlug,
-					text: "Sit nulla est ex deserunt exercitation anim occaecat. Nostrud ullamco deserunt aute id consequat veniam incididunt duis in sint irure nisi. Mollit officia cillum Lorem ullamco minim nostrud elit officia tempor esse quis."
+					id: action.slug,
+					name: action.name,
+					url: action.url,
+					thumbUrl: action.thumbUrl,
+					gallery: action.gallery,
+					text: action.text
 				}
 			];
 		default:
@@ -53,19 +66,28 @@ const artReducer = (state = {artworks:[]}, action) => {
 		return galleries.find(n => n.slug === slug);
 	};
 	switch (action.type){
-		case 'ADD_TEST_ART':
+		// case 'ADD_TEST_ART':
+		// 	return (
+		// 		Object.assign({}, state, {
+		// 			artworks: artListReducer(
+		// 				state.artworks,
+		// 				{type:action.type, id:action.id, galleries:state.galleries}
+		// 			)
+		// 		})
+		// 	);
+		case 'ADD_ART':
 			return (
 				Object.assign({}, state, {
 					artworks: artListReducer(
 						state.artworks,
-						{type:action.type, id:action.id, galleries:state.galleries}
+						action
 					)
 				})
 			);
 		case 'SELECT_ART':{
 			console.log(action.type + ' ' + action.id);
 			if (typeof action.id !== 'undefined'){
-				const selectedArtObject = state.artworks[action.id];
+				const selectedArtObject = state.artworks.find(artwork => artwork.id === action.id);
 				const selectedGalleryObject = getGallery(state.galleries, selectedArtObject.gallery);
 				const artworksInGallery = state.artworks.filter(a => a.gallery === selectedArtObject.gallery);
 				const positionOfSelectedArt = artworksInGallery.findIndex(a => a === selectedArtObject);
@@ -127,24 +149,24 @@ console.log('testing');
 	);
 
 	//add a test art
-	expect(
-		artListReducer(
-			[1],
-			{type:'ADD_TEST_ART', id:1}
-		).length
-	).toEqual(
-		2
-	);
+	// expect(
+	// 	artListReducer(
+	// 		[1],
+	// 		{type:'ADD_TEST_ART', id:1}
+	// 	).length
+	// ).toEqual(
+	// 	2
+	// );
 
 	//test art should choose gallery from provided list of galleries
-	expect(
-		artListReducer(
-			[1,2],
-			{type:'ADD_TEST_ART', id:2, galleries:[{slug:'x'}]}
-		)[2].gallery
-	).toEqual(
-		'x'
-	);
+	// expect(
+	// 	artListReducer(
+	// 		[1,2],
+	// 		{type:'ADD_TEST_ART', id:2, galleries:[{slug:'x'}]}
+	// 	)[2].gallery
+	// ).toEqual(
+	// 	'x'
+	// );
 
 //test galleryListReducer
 	//test default behaviour
@@ -186,14 +208,14 @@ console.log('testing');
 	);
 
 	//test passing through to artListReducer
-	expect(
-		artReducer(
-			{},
-			{type: 'ADD_TEST_ART', id:0}
-		).artworks.length
-	).toEqual(
-		1
-	);
+	// expect(
+	// 	artReducer(
+	// 		{},
+	// 		{type: 'ADD_TEST_ART', id:0}
+	// 	).artworks.length
+	// ).toEqual(
+	// 	1
+	// );
 
 	//test passing through to galleryListReducer
 	expect(
@@ -227,24 +249,24 @@ console.log('testing');
 		artReducer(
 			{
 				artworks:[
-					{name:'wa wa',   gallery:'mySlug'},
-					{name:'wee wee', gallery:'toilet'},
-					{name:'ho ho',   gallery:'mySlug'},
+					{id:'1', name:'wa wa',   gallery:'mySlug'},
+					{id:'2', name:'wee wee', gallery:'toilet'},
+					{id:'3', name:'ho ho',   gallery:'mySlug'},
 				],
 				galleries:[{slug: 'mySlug'}, {slug: 'toilet'}]
 			},
-			{type:'SELECT_ART', id:0})
+			{type:'SELECT_ART', id:'1'})
 	).toEqual(
 		{
 			artworks:[
-				{name:'wa wa', gallery:'mySlug'},
-				{name:'wee wee', gallery:'toilet'},
-				{name:'ho ho',gallery:'mySlug'},
+				{id:'1', name:'wa wa', gallery:'mySlug'},
+				{id:'2', name:'wee wee', gallery:'toilet'},
+				{id:'3', name:'ho ho',gallery:'mySlug'},
 			],
 			galleries:            [{slug: 'mySlug'}, {slug: 'toilet'}],
-			selectedArtObject:    {name:'wa wa', gallery:'mySlug'},
+			selectedArtObject:    {id:'1',name:'wa wa', gallery:'mySlug'},
 			selectedGalleryObject:{slug:'mySlug'},
-			nextArtObject:        {name:'ho ho',gallery:'mySlug'},
+			nextArtObject:        {id:'3', name:'ho ho',gallery:'mySlug'},
 			prevArtObject:        undefined
 		}
 	);

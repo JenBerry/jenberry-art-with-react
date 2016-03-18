@@ -16,7 +16,7 @@ const ThumbButton = (props) => {
 
 ThumbButton.propTypes = {
 	art: React.PropTypes.shape({
-		id: React.PropTypes.number,
+		id: React.PropTypes.string,
 		thumbUrl: React.PropTypes.string
 	}).isRequired
 };
