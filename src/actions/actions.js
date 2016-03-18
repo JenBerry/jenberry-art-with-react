@@ -1,5 +1,3 @@
-let artId = 0;
-let galleryId = 0;
 
 // const addDummyArt = () => {
 // 	const action = {
@@ -13,21 +11,18 @@ let galleryId = 0;
 const addGallery = ({name, slug, imageUrl, mainCategory, subCategory}) => {
 	const action = {
 		type: 'ADD_GALLERY',
-		id: galleryId,
 		name,
 		slug,
 		imageUrl,
 		mainCategory,
 		subCategory
 	};
-	galleryId ++;
 	return action;
 }
 
 const addArt = ({slug, name, url, thumbUrl, gallery, text}) => {
 	const action = {
 		type: 'ADD_ART',
-		id: artId,
 		slug,
 		name,
 		url,
@@ -35,7 +30,6 @@ const addArt = ({slug, name, url, thumbUrl, gallery, text}) => {
 		gallery,
 		text
 	};
-	artId++;
 	return action;
 }
 

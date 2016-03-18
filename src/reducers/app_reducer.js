@@ -2,7 +2,6 @@
 const Redux = require('redux');
 const Lorem = require('react-lorem-component');
 const expect = require('expect');
-// const reducer = require('./reducer.js');
 
 const artListReducer = (state = [], action) => {
 	switch (action.type){
@@ -28,17 +27,25 @@ const artListReducer = (state = [], action) => {
 		// 		}
 		// 	];
 		case 'ADD_ART':
-			return [
-				...state,
-				{
-					id: action.slug,
-					name: action.name,
-					url: action.url,
-					thumbUrl: action.thumbUrl,
-					gallery: action.gallery,
-					text: action.text
-				}
-			];
+			console.log(action.type + ' ' + action.slug);
+			if(typeof action.slug !== 'string' || action.slug === ''){
+				console.error('Error: art is missing slug string');
+			}
+			else if (state.find(art => art.id === action.slug.toLowerCase())){
+				console.error('Error: artwork already exists: ' + action.slug);
+			} else {
+				return [
+					...state,
+					{
+						id: action.slug.toLowerCase(),
+						name: action.name,
+						url: action.url,
+						thumbUrl: action.thumbUrl,
+						gallery: action.gallery,
+						text: action.text
+					}
+				];
+			}
 		default:
 			return state;
 	}
@@ -47,63 +54,72 @@ const artListReducer = (state = [], action) => {
 const galleryListReducer = (state = [], action) =>{
 	switch (action.type){
 		case 'ADD_GALLERY':
-			return [
-				...state,
-				{
-					id: action.id,
-					name: action.name,
-					slug: action.slug,
-					imageUrl: action.imageUrl,
-					mainCategory: action.mainCategory,
-					subCategory: action.subCategory
-				}
-			];
+			console.log(action.type + ' ' + action.slug);
+			if(typeof action.slug !== 'string' || action.slug === ''){
+				console.error('Error: gallery is missing slug string');
+			}
+			else if (state.find(gallery => gallery.slug === action.slug.toLowerCase())){
+				console.error('Error: gallery already exists: ' + action.slug);
+			} else {
+				return [
+					...state,
+					{
+						name: action.name,
+						slug: action.slug.toLowerCase(),
+						imageUrl: action.imageUrl,
+						mainCategory: action.mainCategory,
+						subCategory: action.subCategory
+					}
+				];
+		};
 		default: return state;	
 	}
 };
-const artReducer = (state = {artworks:[]}, action) => {
+const artReducer = (state = {artworks:[], galleries:[]}, action) => {
 	const getGallery = (galleries, slug) => {
 		return galleries.find(n => n.slug === slug);
 	};
 	switch (action.type){
-		// case 'ADD_TEST_ART':
-		// 	return (
-		// 		Object.assign({}, state, {
-		// 			artworks: artListReducer(
-		// 				state.artworks,
-		// 				{type:action.type, id:action.id, galleries:state.galleries}
-		// 			)
-		// 		})
-		// 	);
 		case 'ADD_ART':
-			return (
-				Object.assign({}, state, {
-					artworks: artListReducer(
-						state.artworks,
-						action
-					)
-				})
-			);
+			console.log(action.type + ' ' + action.slug + ' to ' + action.gallery);
+			if (state.galleries.find(gallery => gallery.slug === action.gallery)){
+				return (
+					Object.assign({}, state, {
+						artworks: artListReducer(
+							state.artworks,
+							action
+						)
+					})
+				);
+				
+			} else {
+				console.error("Error: Can't add art to non existant gallery: ");
+				return state;
+			}
 		case 'SELECT_ART':{
 			console.log(action.type + ' ' + action.id);
 			if (typeof action.id !== 'undefined'){
 				const selectedArtObject = state.artworks.find(artwork => artwork.id === action.id);
-				const selectedGalleryObject = getGallery(state.galleries, selectedArtObject.gallery);
-				const artworksInGallery = state.artworks.filter(a => a.gallery === selectedArtObject.gallery);
-				const positionOfSelectedArt = artworksInGallery.findIndex(a => a === selectedArtObject);
-				let nextArtObject = artworksInGallery[positionOfSelectedArt+1];
-				let prevArtObject = artworksInGallery[positionOfSelectedArt-1];
+				if (typeof selectedArtObject !== 'undefined'){
+					const selectedGalleryObject = getGallery(state.galleries, selectedArtObject.gallery);
+					const artworksInGallery = state.artworks.filter(a => a.gallery === selectedArtObject.gallery);
+					const positionOfSelectedArt = artworksInGallery.findIndex(a => a === selectedArtObject);
+					let nextArtObject = artworksInGallery[positionOfSelectedArt+1];
+					let prevArtObject = artworksInGallery[positionOfSelectedArt-1];
 
-				return (
-					Object.assign({}, state, {
-						selectedArtObject,
-						selectedGalleryObject,
-						nextArtObject,
-						prevArtObject
-					})
-				);
+					return (
+						Object.assign({}, state, {
+							selectedArtObject,
+							selectedGalleryObject,
+							nextArtObject,
+							prevArtObject
+						})
+					);
+				} else {
+					console.error("Error: No artwork found with id " + action.id);
+				}
 			} else {
-				return state;
+				console.error("Error: no art id provided for selection");
 			}
 		}
 		case 'ADD_GALLERY' : {
@@ -121,14 +137,17 @@ const artReducer = (state = {artworks:[]}, action) => {
 			let selectedGalleryObject;
 			if (typeof action.slug !== 'undefined'){
 				selectedGalleryObject = getGallery(state.galleries, action.slug);
-				return(
-					Object.assign({}, state, {
-						selectedGalleryObject
-					})
-				);
+				if(typeof selectedGalleryObject === 'undefined'){
+					console.error('Error: No gallery exists with slug: ' + action.slug);
+				};
 			} else {
-				return state;
+				console.error('Error: No slug provided to set gallery');
 			}
+			return(
+				Object.assign({}, state, {
+					selectedGalleryObject
+				})
+			);
 		}
 		default:
 			return state;
@@ -140,177 +159,190 @@ module.exports = artReducer;
 
 console.log('testing');
 
-//test artListReducer
-	//default behaviour
-	expect(
-		artListReducer(undefined,{type:'OTHER'})
-	).toEqual(
-		[]
-	);
-
-	//add a test art
-	// expect(
-	// 	artListReducer(
-	// 		[1],
-	// 		{type:'ADD_TEST_ART', id:1}
-	// 	).length
-	// ).toEqual(
-	// 	2
-	// );
-
-	//test art should choose gallery from provided list of galleries
-	// expect(
-	// 	artListReducer(
-	// 		[1,2],
-	// 		{type:'ADD_TEST_ART', id:2, galleries:[{slug:'x'}]}
-	// 	)[2].gallery
-	// ).toEqual(
-	// 	'x'
-	// );
-
-//test galleryListReducer
-	//test default behaviour
-	expect(
-		galleryListReducer(undefined,{type:'OTHER'})
-	).toEqual(
-		[]
-	);
-
-	//test adding a gallery
-	expect(
-		galleryListReducer([],{
-			type:'ADD_GALLERY',
-			id: 0,
-			name: 'Test',
-			slug: 'test',
-			imageUrl: '',
-			mainCategory: 'Test',
-		})
-	).toEqual(
-		[{
-			id: 0,
-			name: 'Test',
-			slug: 'test',
-			imageUrl: '',
-			mainCategory: 'Test',
-			subCategory: undefined
-		}]
-	);
-
-//test artReducer
-	//test default behaviour
+console.log('test initialisation');
 	expect(
 		artReducer(undefined,{type:'OTHER'})
 	).toEqual(
-		{
-			artworks:[]
-		}
+		{galleries:[], artworks:[]}
 	);
 
-	//test passing through to artListReducer
-	// expect(
-	// 	artReducer(
-	// 		{},
-	// 		{type: 'ADD_TEST_ART', id:0}
-	// 	).artworks.length
-	// ).toEqual(
-	// 	1
-	// );
-
-	//test passing through to galleryListReducer
+console.log('test unrecognised action');
 	expect(
-		artReducer(
-			{galleries:[]},
-			{
-				type: 'ADD_GALLERY',
-				id: 0,
-				name: 'Test',
-				slug: 'test',
-				imageUrl: '',
-				mainCategory: 'Test',
-			}
-		)
+		artReducer('state', {type:'OTHER'})
 	).toEqual(
-		{
-			galleries: [
-				{
-					id: 0,
-					name: 'Test',
-					slug: 'test',
-					imageUrl: '',
-					mainCategory: 'Test',
-					subCategory: undefined
-				}
-			]
-		}
+		'state'
 	);
-	//test selecting an artwork
 	expect(
-		artReducer(
-			{
-				artworks:[
-					{id:'1', name:'wa wa',   gallery:'mySlug'},
-					{id:'2', name:'wee wee', gallery:'toilet'},
-					{id:'3', name:'ho ho',   gallery:'mySlug'},
-				],
-				galleries:[{slug: 'mySlug'}, {slug: 'toilet'}]
-			},
-			{type:'SELECT_ART', id:'1'})
+		artListReducer('state', {type:'OTHER'})
+	).toEqual(
+		'state'
+	);
+	expect(
+		galleryListReducer('state', {type:'OTHER'})
+	).toEqual(
+		'state'
+	);
+
+console.log('test adding gallery');
+{
+	const addedGallery = galleryListReducer([1], {type:'ADD_GALLERY', slug:'hello'});
+	expect(
+		[addedGallery[1].slug, addedGallery.length]
+	).toEqual(
+		['hello', 2]
+	);	
+}
+	console.log('test adding gallery with incorrect slug');
+	expect(
+		galleryListReducer([{slug:'hello'}], {type:'ADD_GALLERY', slug:'Hello'})
+	).toEqual(
+		[{slug:'hello'}]
+	);
+	expect(
+		galleryListReducer([], {type:'ADD_GALLERY'})
+	).toEqual(
+		[]
+	);
+	expect(
+		galleryListReducer([], {type:'ADD_GALLERY', slug:''})
+	).toEqual(
+		[]
+	);
+	expect(
+		galleryListReducer([], {type:'ADD_GALLERY', slug:5})
+	).toEqual(
+		[]
+	);
+
+console.log('test adding artwork');
+{
+	const addedArt = artListReducer([1], {type:'ADD_ART', slug: 'fOx'});
+	expect(
+		[addedArt[1].id, addedArt.length]
+	).toEqual(
+		['fox',2]
+	);
+}
+	console.log('test adding art with incorrect slug');
+	expect(
+		artListReducer([{id:'fox'}], {type:'ADD_ART', slug: 'fOx'})
+	).toEqual(
+		[{id:'fox'}]
+	);
+	expect(
+		artListReducer([], {type:'ADD_ART'})
+	).toEqual(
+		[]
+	);
+	expect(
+		artListReducer([], {type:'ADD_ART', slug: ''})
+	).toEqual(
+		[]
+	);
+	expect(
+		artListReducer([], {type:'ADD_ART', slug: 10})
+	).toEqual(
+		[]
+	);
+
+	console.log('test adding artwork to a gallery that doesn\'t exist');
+	expect(
+		artReducer({artworks:[], galleries:[]}, {type:'ADD_ART', gallery:'notexist'})
+	).toEqual(
+		{artworks:[], galleries:[]}
+	);
+
+console.log('testing setting gallery');
+	expect(
+		artReducer({artworks:[], galleries:[{slug:'poo'}]}, {type:'SET_GALLERY_FROM_SLUG', slug:'poo'})
+	).toEqual(
+		{artworks:[], galleries:[{slug:'poo'}], selectedGalleryObject:{slug:'poo'}}
+	);
+
+	expect(
+		artReducer({artworks:[], galleries:[], selectedGalleryObject:{}}, {type:'SET_GALLERY_FROM_SLUG'})
+	).toEqual(
+		{artworks:[], galleries:[], selectedGalleryObject:undefined}
+	);
+	expect(
+		artReducer({artworks:[], galleries:[], selectedGalleryObject:{}}, {type:'SET_GALLERY_FROM_SLUG', slug:'hello'})
+	).toEqual(
+		{artworks:[], galleries:[], selectedGalleryObject:undefined}
+	);
+
+console.log('test selecting art');
+	expect(
+		artReducer({artworks:[], galleries:[]}, {type:'SELECT_ART'})
+	).toEqual(
+		{artworks:[], galleries:[]}
+	);
+	expect(
+		artReducer({artworks:[], galleries:[]}, {type:'SELECT_ART', id:"notexist"})
+	).toEqual(
+		{artworks:[], galleries:[]}
+	);
+
+	expect(
+		artReducer({
+			artworks:[
+				{id:'this_one', gallery:'my_gallery'}
+			],
+			galleries:[
+				{slug:'my_gallery'}
+			]
+		},
+		{
+			type:'SELECT_ART',
+			id:'this_one'
+		})
 	).toEqual(
 		{
 			artworks:[
-				{id:'1', name:'wa wa', gallery:'mySlug'},
-				{id:'2', name:'wee wee', gallery:'toilet'},
-				{id:'3', name:'ho ho',gallery:'mySlug'},
+				{id:'this_one', gallery:'my_gallery'}
 			],
-			galleries:            [{slug: 'mySlug'}, {slug: 'toilet'}],
-			selectedArtObject:    {id:'1',name:'wa wa', gallery:'mySlug'},
-			selectedGalleryObject:{slug:'mySlug'},
-			nextArtObject:        {id:'3', name:'ho ho',gallery:'mySlug'},
-			prevArtObject:        undefined
+			galleries:[
+				{slug:'my_gallery'}
+			],
+			selectedArtObject: {id:'this_one', gallery:'my_gallery'},
+			selectedGalleryObject: {slug:'my_gallery'},
+			nextArtObject: undefined,
+			prevArtObject:undefined
 		}
 	);
 
-	//if SELECT_ART is called with no id, don't do anything
 	expect(
-		artReducer(
-			{
-				artworks:[],
-				galleries:[]
-			},
-			{type:'SELECT_ART'})
+		artReducer({
+			artworks:[
+				{id:'this_one', gallery:'my_gallery'},
+				{id:'that_one', gallery:'another'},
+				{id:'poo', gallery:'my_gallery'},
+			],
+			galleries:[
+				{slug:'my_gallery'},
+				{slug:'another'},
+			]
+		},
+		{
+			type:'SELECT_ART',
+			id:'this_one'
+		})
 	).toEqual(
 		{
-			artworks:[],
-			galleries: [],
+			artworks:[
+				{id:'this_one', gallery:'my_gallery'},
+				{id:'that_one', gallery:'another'},
+				{id:'poo', gallery:'my_gallery'},
+			],
+			galleries:[
+				{slug:'my_gallery'},
+				{slug:'another'},
+			],
+			selectedArtObject: {id:'this_one', gallery:'my_gallery'},
+			selectedGalleryObject: {slug:'my_gallery'},
+			nextArtObject: {id:'poo', gallery:'my_gallery'},
+			prevArtObject:undefined
 		}
 	);
-
-	//test selecting a gallery
-	expect(
-		artReducer(
-			{artworks:[], galleries:[{slug: 'digital'}]},
-			{type:'SET_GALLERY_FROM_SLUG', slug:'digital'})
-	).toEqual(
-		{
-			artworks:[],
-			galleries:[{slug: 'digital'}],
-			selectedGalleryObject: {slug: 'digital'}
-		}
-	);
-
-	//if SET_GALLERY_FROM_SLUG called with no slug, don't do anything
-	expect(
-		artReducer(
-			{artworks:[], galleries:[]},
-			{type:'SET_GALLERY_FROM_SLUG'})
-	).toEqual(
-		{
-			artworks:[],
-			galleries:[],
-		}
-	);
-
 
 console.log('tests passed');
 
