@@ -30,6 +30,10 @@ module.exports = {
 			{
 				test: /.*.html$/,
 				loader: ExtractTextPlugin.extract("html-loader")
+			},
+			{
+				test: /.*.json$/,
+				loader: 'json-loader'
 			}
 		]
 	},
