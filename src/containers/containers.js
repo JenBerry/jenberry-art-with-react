@@ -24,8 +24,9 @@ const PageContainer = connect(
 					dispatch(actions.addGallery({
 						name: gallery.name,
 						slug: gallery.slug,
-						imageUrl: 'http://lorempixel.com/496/89/abstract/2',
-						mainCategory: gallery.mainCategory
+						imageUrl: gallery.imageUrl,
+						mainCategory: gallery.mainCategory,
+						subCategory: gallery.subCategory
 					}))
 				};
 			},
