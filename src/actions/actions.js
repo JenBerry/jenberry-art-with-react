@@ -47,10 +47,18 @@ const setGallery = (slug) => {
 	}
 }
 
+const setMainCategory = (category) => {
+	return {
+		type: 'SET_GALLERY_MAIN_CATEGORY',
+		mainCategory: category
+	}
+}
+
 module.exports = {
 	// addDummyArt,
 	addGallery,
 	addArt,
 	selectArt,
-	setGallery
+	setGallery,
+	setMainCategory
 }

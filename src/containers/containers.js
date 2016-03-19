@@ -77,7 +77,15 @@ const PageGalleryContainer = connect(
 )(PageGallery);
 
 const ArtPageContentsContainer = connect(
-	(state) => {return{galleries: state.galleries}}
+	(state) => {return{
+		galleries: state.galleries,
+		selectedGalleryObject: state.selectedGalleryObject
+	}},
+	(dispatch) => {return{
+		setMainCategory: (category) => {
+			dispatch(actions.setMainCategory(category))
+		}
+	}}
 )(ArtPageContents);
 
 module.exports = {

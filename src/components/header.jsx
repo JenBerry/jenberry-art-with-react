@@ -48,7 +48,7 @@ const Header = React.createClass({
 		].map(function(pageName, i){
 			return (
 				<li key={i} className={pageName === currentNav ? 'active': ''}>
-					<Link to={pageName}>{pageName}</Link>
+					<Link to={'/'+pageName}>{pageName}</Link>
 				</li>
 			)
 		}, this);
