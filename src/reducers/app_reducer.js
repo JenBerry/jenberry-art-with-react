@@ -149,6 +149,18 @@ const artReducer = (state = {artworks:[], galleries:[]}, action) => {
 				})
 			);
 		}
+		case 'SET_GALLERY_MAIN_CATEGORY' : {
+			console.log(action.type + ' ' + action.mainCategory);
+			if (state.galleries.find(g => g.mainCategory ===  action.mainCategory)){
+				return(
+					Object.assign({}, state, {
+						selectedGalleryObject: {mainCategory: action.mainCategory}
+					})
+				);
+			} else {
+				console.error('Error: main category doesn\'t exist: ',  action.mainCategory);
+			};
+		}
 		default:
 			return state;
 		
@@ -268,6 +280,34 @@ console.log('testing setting gallery');
 		artReducer({artworks:[], galleries:[], selectedGalleryObject:{}}, {type:'SET_GALLERY_FROM_SLUG', slug:'hello'})
 	).toEqual(
 		{artworks:[], galleries:[], selectedGalleryObject:undefined}
+	);
+
+console.log('testing setting a gallery main category');
+	expect(
+		artReducer(
+			{artworks:[],galleries:[{mainCategory:'foo'}]},
+			{type:'SET_GALLERY_MAIN_CATEGORY', mainCategory: 'foo'}
+		)
+	).toEqual(
+		{artworks:[],galleries:[{mainCategory:'foo'}], selectedGalleryObject:{mainCategory:'foo'}}
+	);
+
+	expect(
+		artReducer(
+			{artworks:[],galleries:[]},
+			{type:'SET_GALLERY_MAIN_CATEGORY'}
+		)
+	).toEqual(
+		{artworks:[],galleries:[]}
+	);
+
+	expect(
+		artReducer(
+			{artworks:[],galleries:[]},
+			{type:'SET_GALLERY_MAIN_CATEGORY', mainCategory: 'foo'}
+		)
+	).toEqual(
+		{artworks:[],galleries:[]}
 	);
 
 console.log('test selecting art');
