@@ -1,5 +1,6 @@
 const expect = require('expect');
 const data = require('../data.json');
+const {mediaRoot} = require('./globals.js');
 console.log('raw data:');
 console.log(data)
 
@@ -31,7 +32,7 @@ galleries = galleries.map((gallery)=>{
 		id: gallery.id,
 		name: gallery.name,
 		slug: gallery.galleryid,
-		imageUrl: `http://jenberry.co.uk/art/media/img/${galleryImage}`,
+		imageUrl: `${mediaRoot}/img/${galleryImage}`,
 		mainCategory: getCategory(gallery.categoryid),
 		subCategory: gallerySubCategory,
 		description: gallery.description
@@ -46,8 +47,8 @@ artworks = artworks.map((artwork)=>{
 	return {
 		slug: artwork.picid,
 		name: artwork.name,
-		url: `http://www.jenberry.co.uk/art/media/img/${mainCategory}/${artwork.url}`,
-		thumbUrl: `http://www.jenberry.co.uk/art/media/img/thumb/${mainCategory}/${artwork.thumbnailurl}`,
+		url: `${mediaRoot}/img/${mainCategory}/${artwork.url}`,
+		thumbUrl: `${mediaRoot}/img/thumb/${mainCategory}/${artwork.thumbnailurl}`,
 		gallery: getGallerySlug(artwork.galleryid),
 		text: artwork.description
 	};
