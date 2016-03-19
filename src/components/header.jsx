@@ -5,7 +5,10 @@ const {hashHistory} = require('react-router');
 const Header = React.createClass({
 	render(){
 		let path
-		hashHistory.listen(ev => {path = ev.pathname});
+		//listen for URL changes and update path variable when changed
+		hashHistory.listen(ev => {
+			path = ev.pathname
+		});
 		let currentNav = 'home';
 
 		const currentGallery = this.props.currentGallery;
@@ -23,11 +26,11 @@ const Header = React.createClass({
 		}
 		if(path.match(/^\/\w*$/) && path !== '/home'){
 			currentNav = path.substring(1);
-			pageBreadcrumb = createBreadcrumb(path.substring(1),path.substring(1));
+			pageBreadcrumb = createBreadcrumb(currentNav,currentNav);
 		}
 		if((path.match(/^\/gallery\//) || path.match(/^\/artwork\//)) && typeof currentGallery !== 'undefined'){
-			currentNav = 'art';
-			pageBreadcrumb = createBreadcrumb('art','Art');
+			currentNav = currentGallery.mainCategory;
+			pageBreadcrumb = createBreadcrumb(currentNav,currentNav);
 			galleryBreadcrumb = createBreadcrumb("gallery/" + currentGallery.slug,currentGallery.name);
 		}
 		if(path.match(/^\/artwork\//) && typeof currentArtwork !== 'undefined'){
