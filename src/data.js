@@ -7,32 +7,33 @@ let categories = data.category;
 const getCategory = id => categories.find(category => category.id === id).category;
 
 let galleries = data.galleryid;
-const galleryImages = [
-	{gallery: 'digital-paintings', image: 'digibutton.png'},
-	{gallery: 'pen-animals',       image: 'penbutton.png'},
-	{gallery: 'traditional',       image: 'tradbutton.png'},
-	{gallery: 'sketches',          image: 'quickbutton.png'},
-	{gallery: 'walkthroughs',      image: 'stepbutton.png'},
-	{gallery: 'abstract',          image: 'abstractbutton.jpg'},
-	{gallery: 'animal-photography',image: ''},
-	{gallery: 'scisoc',            image: 'posterbutton.png'},
-	{gallery: 'weevil',            image: 'magbutton.png'},
-	{gallery: 'orchard-park',      image: 'opbutton.png'},
-	{gallery: 'logos',             image: 'logobutton.png'},
-	{gallery: 'websites',          image: 'webbutton.png'},
-	{gallery: 'rocksoc',           image: 'rocksocbutton.png'},
-	{gallery: 'domino',            image: 'dominobutton.jpg'},
+const extraGalleryData = [
+	{gallery: 'digital-paintings', image: 'digibutton.png',    subCategory: 'Artwork'},
+	{gallery: 'pen-animals',       image: 'penbutton.png',     subCategory: 'Artwork'},
+	{gallery: 'traditional',       image: 'tradbutton.png',    subCategory: 'Artwork'},
+	{gallery: 'sketches',          image: 'quickbutton.png',   subCategory: 'Artwork'},
+	{gallery: 'walkthroughs',      image: 'stepbutton.png',    subCategory: 'Artwork'},
+	{gallery: 'abstract',          image: 'abstractbutton.jpg',subCategory: 'Artwork'},
+	{gallery: 'animal-photography',image: '',                  subCategory: 'Photography'},
+	{gallery: 'scisoc',            image: 'posterbutton.png',  subCategory: 'Projects'},
+	{gallery: 'weevil',            image: 'magbutton.png',     subCategory: 'Projects'},
+	{gallery: 'orchard-park',      image: 'opbutton.png',      subCategory: 'Projects'},
+	{gallery: 'logos',             image: 'logobutton.png',    subCategory: 'Design'},
+	{gallery: 'websites',          image: 'webbutton.png',     subCategory: 'Design'},
+	{gallery: 'rocksoc',           image: 'rocksocbutton.png', subCategory: 'Projects'},
+	{gallery: 'domino',            image: 'dominobutton.jpg',  subCategory: 'Projects'},
 ];
-const getGalleryImage = (gallery) => galleryImages.find(g => g.gallery === gallery);
+const getGalleryImage = (gallery) => extraGalleryData.find(g => g.gallery === gallery);
 galleries = galleries.map((gallery)=>{
-	let galleryImage = getGalleryImage(gallery.galleryid).image;
+	const galleryImage = getGalleryImage(gallery.galleryid).image;
+	const gallerySubCategory = getGalleryImage(gallery.galleryid).subCategory;
 	return {
 		id: gallery.id,
 		name: gallery.name,
 		slug: gallery.galleryid,
 		imageUrl: `http://jenberry.co.uk/art/media/img/${galleryImage}`,
 		mainCategory: getCategory(gallery.categoryid),
-		subCategory: getCategory(gallery.categoryid),
+		subCategory: gallerySubCategory,
 		description: gallery.description
 	};
 });
