@@ -37,7 +37,6 @@ const Header = React.createClass({
 			'home',
 			'art',
 			'design',
-			'prices',
 			'about',
 			'contact'
 		].map(function(pageName, i){
