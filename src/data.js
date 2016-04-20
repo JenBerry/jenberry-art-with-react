@@ -44,6 +44,17 @@ const getGalleryCategory = id => galleries.find(gallery => gallery.id === id).ma
 let artworks = data.artwork;
 artworks = artworks.map((artwork)=>{
 	const mainCategory = getGalleryCategory(artwork.galleryid);
+	let date = artwork.date.toString();
+	if (date.length === 5){
+		date = "200"+ date;
+	} else {
+		date = "20"+date;
+	};
+	let day = date.slice(-2);
+	let month = date.slice(-4,-2);
+	let year = date.slice(0,4);
+	date = new Date(year,month,day);
+
 	return {
 		slug: artwork.picid,
 		name: artwork.name,
@@ -51,7 +62,7 @@ artworks = artworks.map((artwork)=>{
 		thumbUrl: `${mediaRoot}/img/thumb/${mainCategory}/${artwork.thumbnailurl}`,
 		gallery: getGallerySlug(artwork.galleryid),
 		text: artwork.description,
-		date: artwork.date
+		date: date
 	};
 });
 
