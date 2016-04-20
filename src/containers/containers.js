@@ -5,15 +5,14 @@ const Page = require('../components/page.jsx');
 const PageArtwork = require('../components/page-artwork.jsx');
 const PageGallery = require('../components/page-gallery.jsx');
 const ArtPageContents = require('../components/art.jsx');
+const Header = require('../components/header.jsx');
 
 const actions = require('../actions/actions.js');
 
 const PageContainer = connect(
 	( state ) => {
 		return{
-			state,
-			currentArtwork: state.selectedArtObject,
-			currentGallery: state.selectedGalleryObject
+			state
 		}
 	},
 	( dispatch ) => {
@@ -42,6 +41,9 @@ const PageContainer = connect(
 						text: artwork.text
 					}));
 				};
+			},
+			setPath: (path) =>{
+				dispatch(actions.setPath(path));
 			}
 
 		};
@@ -79,7 +81,7 @@ const PageGalleryContainer = connect(
 const ArtPageContentsContainer = connect(
 	(state) => {return{
 		galleries: state.galleries,
-		selectedGalleryObject: state.selectedGalleryObject
+		selectedGalleryObject: state.selectedGalleryObject,
 	}},
 	(dispatch) => {return{
 		setMainCategory: (category) => {
@@ -92,5 +94,5 @@ module.exports = {
 	PageContainer,
 	PageArtworkContainer,
 	PageGalleryContainer,
-	ArtPageContentsContainer
+	ArtPageContentsContainer,
 }

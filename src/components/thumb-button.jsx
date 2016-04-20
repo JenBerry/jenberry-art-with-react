@@ -4,7 +4,7 @@ const ImageLoader = require('react-imageloader');
 
 const ThumbButton = (props) => {
 	return (
-		<Link to={"artwork/"+props.art.id} className="block-link" href="">
+		<Link to={"/artwork/"+props.art.id} className="block-link" href="">
 			<ImageLoader src={props.art.thumbUrl}
 						 preloader={()=><span>Loading...</span>} >
 				<span>Problem loading thumbnail</span>
@@ -21,4 +21,4 @@ ThumbButton.propTypes = {
 	}).isRequired
 };
 
-module.exports = ThumbButton;
+module.exports = ThumbButton; 

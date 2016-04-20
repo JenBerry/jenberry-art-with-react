@@ -50,7 +50,8 @@ artworks = artworks.map((artwork)=>{
 		url: `${mediaRoot}/img/${mainCategory}/${artwork.url}`,
 		thumbUrl: `${mediaRoot}/img/thumb/${mainCategory}/${artwork.thumbnailurl}`,
 		gallery: getGallerySlug(artwork.galleryid),
-		text: artwork.description
+		text: artwork.description,
+		date: artwork.date
 	};
 });
 

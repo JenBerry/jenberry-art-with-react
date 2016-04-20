@@ -1,6 +1,17 @@
 const React = require('react');
 const Header = require('./header.jsx');
 const Footer = require('./footer.jsx');
+const {hashHistory} = require('react-router');
+
+const {connect} = require('react-redux');
+const HeaderContainer = connect(( state ) => {
+	return{
+		currentArtwork: state.selectedArtObject,
+		currentGallery: state.selectedGalleryObject,
+		path: state.path
+	}
+},{})(Header);
+
 
 const Page = React.createClass({
 	componentDidUpdate(){
@@ -10,11 +21,15 @@ const Page = React.createClass({
 	componentWillMount(){
 		this.props.initialiseGalleries();
 		this.props.initialiseArt();
+		//listen for URL changes and update path variable when changed
+		hashHistory.listen(ev => {
+			this.props.setPath(ev.pathname);
+		});
 	},
 	render(){
 		return(
 		<div className="container">
-			<Header currentArtwork={this.props.currentArtwork} currentGallery={this.props.currentGallery} />
+			<HeaderContainer />
 			{ this.props.children }
 			<Footer />
 		</div>

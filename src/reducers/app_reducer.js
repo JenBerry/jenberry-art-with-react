@@ -27,7 +27,7 @@ const artListReducer = (state = [], action) => {
 		// 		}
 		// 	];
 		case 'ADD_ART':
-			console.log(action.type + ' ' + action.slug);
+			// console.log(action.type + ' ' + action.slug);
 			if(typeof action.slug !== 'string' || action.slug === ''){
 				console.error('Error: art is missing slug string');
 			}
@@ -81,7 +81,7 @@ const artReducer = (state = {artworks:[], galleries:[]}, action) => {
 	};
 	switch (action.type){
 		case 'ADD_ART':
-			console.log(action.type + ' ' + action.slug + ' to ' + action.gallery);
+			// console.log(action.type + ' ' + action.slug + ' to ' + action.gallery);
 			if (state.galleries.find(gallery => gallery.slug === action.gallery)){
 				return (
 					Object.assign({}, state, {
@@ -159,7 +159,16 @@ const artReducer = (state = {artworks:[], galleries:[]}, action) => {
 				);
 			} else {
 				console.error('Error: main category doesn\'t exist: ',  action.mainCategory);
-			};
+				return state;
+			}
+		}
+		case 'SET_PATH' : {
+			console.log(action.type + ' path ' + action.path);
+			return(
+				Object.assign({}, state, {
+					path: action.path
+				})
+			);
 		}
 		default:
 			return state;
@@ -382,6 +391,18 @@ console.log('test selecting art');
 			nextArtObject: {id:'poo', gallery:'my_gallery'},
 			prevArtObject:undefined
 		}
+	);
+
+console.log('test setting path');
+	expect(
+		artReducer({artworks:[], galleries:[]},{type:'SET_PATH', path:'boo'})
+	).toEqual(
+		{artworks:[], galleries:[], path:'boo'}
+	);
+	expect(
+		artReducer({artworks:[], galleries:[]},{type:'SET_PATH'})
+	).toEqual(
+		{artworks:[], galleries:[], path:undefined}
 	);
 
 console.log('tests passed');

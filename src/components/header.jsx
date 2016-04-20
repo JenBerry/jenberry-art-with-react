@@ -1,14 +1,9 @@
 const React = require('react');
 const Link = require('react-router').Link;
-const {hashHistory} = require('react-router');
 
 const Header = React.createClass({
 	render(){
-		let path
-		//listen for URL changes and update path variable when changed
-		hashHistory.listen(ev => {
-			path = ev.pathname
-		});
+		let path = this.props.path;
 		let currentNav = 'home';
 
 		const currentGallery = this.props.currentGallery;

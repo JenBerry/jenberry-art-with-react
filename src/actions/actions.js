@@ -54,11 +54,19 @@ const setMainCategory = (category) => {
 	}
 }
 
+const setPath = (path) => {
+	return {
+		type: 'SET_PATH',
+		path: path
+	}
+}
+
 module.exports = {
 	// addDummyArt,
 	addGallery,
 	addArt,
 	selectArt,
 	setGallery,
-	setMainCategory
+	setMainCategory,
+	setPath
 }

@@ -21,7 +21,7 @@ const {
 	PageContainer, 
 	PageArtworkContainer, 
 	PageGalleryContainer, 
-	ArtPageContentsContainer
+	ArtPageContentsContainer,
 } = require('./containers/containers.js')
 
 
