@@ -42,7 +42,8 @@ const artListReducer = (state = [], action) => {
 						url: action.url,
 						thumbUrl: action.thumbUrl,
 						gallery: action.gallery,
-						text: action.text
+						text: action.text,
+						date: action.date
 					}
 				];
 			}

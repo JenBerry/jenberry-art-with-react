@@ -13,7 +13,6 @@ const styles = require('./styles.less');
 
 
 const PageContents = require('./components/page-contents.jsx');
-const HomePageContents = require('./components/home.jsx');
 let PricesPageContents
 let AboutPageContents
 let ContactPageContents
@@ -22,6 +21,7 @@ const {
 	PageArtworkContainer, 
 	PageGalleryContainer, 
 	ArtPageContentsContainer,
+	HomeContainer
 } = require('./containers/containers.js')
 
 
@@ -42,7 +42,7 @@ ReactDOM.render((
 			<Route path="/" component={PageContainer}>
 				<IndexRedirect to="/home" />
 				<Route path="/home" component={PageContents}>
-					<IndexRoute component={HomePageContents} />
+					<IndexRoute component={HomeContainer} />
 					<Route path="/art" component={ArtPageContentsContainer} />
 					<Route path="/design" component={ArtPageContentsContainer} />
 					<Route path="/prices" component={PricesPageContents} />

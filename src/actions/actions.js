@@ -20,7 +20,7 @@ const addGallery = ({name, slug, imageUrl, mainCategory, subCategory}) => {
 	return action;
 }
 
-const addArt = ({slug, name, url, thumbUrl, gallery, text}) => {
+const addArt = ({slug, name, url, thumbUrl, gallery, text, date}) => {
 	const action = {
 		type: 'ADD_ART',
 		slug,
@@ -28,7 +28,8 @@ const addArt = ({slug, name, url, thumbUrl, gallery, text}) => {
 		url,
 		thumbUrl,
 		gallery,
-		text
+		text,
+		date
 	};
 	return action;
 }

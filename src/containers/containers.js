@@ -6,6 +6,7 @@ const PageArtwork = require('../components/page-artwork.jsx');
 const PageGallery = require('../components/page-gallery.jsx');
 const ArtPageContents = require('../components/art.jsx');
 const Header = require('../components/header.jsx');
+const HomePageContents = require('../components/home.jsx');
 
 const actions = require('../actions/actions.js');
 
@@ -38,7 +39,8 @@ const PageContainer = connect(
 						url: artwork.url,
 						thumbUrl: artwork.thumbUrl,
 						gallery: artwork.gallery,
-						text: artwork.text
+						text: artwork.text,
+						date: artwork.date
 					}));
 				};
 			},
@@ -90,9 +92,24 @@ const ArtPageContentsContainer = connect(
 	}}
 )(ArtPageContents);
 
+const HomeContainer = connect(
+	(state) => {return{
+		artworks: state.artworks.sort((a,b)=> {
+			if (a.date < b.date){
+				return 1
+			}
+			if (a.date > b.date){
+				return -1
+			}
+			return 0
+		}).slice(0,8)
+	}}
+)(HomePageContents);
+
 module.exports = {
 	PageContainer,
 	PageArtworkContainer,
 	PageGalleryContainer,
 	ArtPageContentsContainer,
+	HomeContainer
 }
