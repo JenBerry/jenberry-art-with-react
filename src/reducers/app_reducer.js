@@ -29,10 +29,10 @@ const artListReducer = (state = [], action) => {
 		case 'ADD_ART':
 			// console.log(action.type + ' ' + action.slug);
 			if(typeof action.slug !== 'string' || action.slug === ''){
-				console.error('Error: art is missing slug string');
+				// console.error('Error: art is missing slug string');
 			}
 			else if (state.find(art => art.id === action.slug.toLowerCase())){
-				console.error('Error: artwork already exists: ' + action.slug);
+				// console.error('Error: artwork already exists: ' + action.slug);
 			} else {
 				return [
 					...state,
@@ -55,12 +55,12 @@ const artListReducer = (state = [], action) => {
 const galleryListReducer = (state = [], action) =>{
 	switch (action.type){
 		case 'ADD_GALLERY':
-			console.log(action.type + ' ' + action.slug);
+			// console.log(action.type + ' ' + action.slug);
 			if(typeof action.slug !== 'string' || action.slug === ''){
-				console.error('Error: gallery is missing slug string');
+				// console.error('Error: gallery is missing slug string');
 			}
 			else if (state.find(gallery => gallery.slug === action.slug.toLowerCase())){
-				console.error('Error: gallery already exists: ' + action.slug);
+				// console.error('Error: gallery already exists: ' + action.slug);
 			} else {
 				return [
 					...state,
@@ -96,11 +96,11 @@ const artReducer = (state = {artworks:[], galleries:[]}, action) => {
 				);
 				
 			} else {
-				console.error("Error: Can't add art to non existant gallery: ");
+				// console.error("Error: Can't add art to non existant gallery: ");
 				return state;
 			}
 		case 'SELECT_ART':{
-			console.log(action.type + ' ' + action.id);
+			// console.log(action.type + ' ' + action.id);
 			if (typeof action.id !== 'undefined'){
 				const selectedArtObject = state.artworks.find(artwork => artwork.id === action.id);
 				if (typeof selectedArtObject !== 'undefined'){
@@ -119,10 +119,10 @@ const artReducer = (state = {artworks:[], galleries:[]}, action) => {
 						})
 					);
 				} else {
-					console.error("Error: No artwork found with id " + action.id);
+					// console.error("Error: No artwork found with id " + action.id);
 				}
 			} else {
-				console.error("Error: no art id provided for selection");
+				// gerror("Error: no art id provided for selection");
 			}
 		}
 		case 'ADD_GALLERY' : {
@@ -136,15 +136,15 @@ const artReducer = (state = {artworks:[], galleries:[]}, action) => {
 			);
 		}
 		case 'SET_GALLERY_FROM_SLUG' : {
-			console.log(action.type + ' ' + action.slug);
+			// console.log(action.type + ' ' + action.slug);
 			let selectedGalleryObject;
 			if (typeof action.slug !== 'undefined'){
 				selectedGalleryObject = getGallery(state.galleries, action.slug);
 				if(typeof selectedGalleryObject === 'undefined'){
-					console.error('Error: No gallery exists with slug: ' + action.slug);
+					// console.error('Error: No gallery exists with slug: ' + action.slug);
 				};
 			} else {
-				console.error('Error: No slug provided to set gallery');
+				// console.error('Error: No slug provided to set gallery');
 			}
 			return(
 				Object.assign({}, state, {
@@ -153,7 +153,7 @@ const artReducer = (state = {artworks:[], galleries:[]}, action) => {
 			);
 		}
 		case 'SET_GALLERY_MAIN_CATEGORY' : {
-			console.log(action.type + ' ' + action.mainCategory);
+			// console.log(action.type + ' ' + action.mainCategory);
 			if (state.galleries.find(g => g.mainCategory ===  action.mainCategory)){
 				return(
 					Object.assign({}, state, {
@@ -161,12 +161,12 @@ const artReducer = (state = {artworks:[], galleries:[]}, action) => {
 					})
 				);
 			} else {
-				console.error('Error: main category doesn\'t exist: ',  action.mainCategory);
+				// console.error('Error: main category doesn\'t exist: ',  action.mainCategory);
 				return state;
 			}
 		}
 		case 'SET_PATH' : {
-			console.log(action.type + ' path ' + action.path);
+			// console.log(action.type + ' path ' + action.path);
 			return(
 				Object.assign({}, state, {
 					path: action.path

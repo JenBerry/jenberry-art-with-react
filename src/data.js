@@ -1,8 +1,6 @@
 const expect = require('expect');
 const data = require('../data.json');
 const {mediaRoot} = require('./globals.js');
-console.log('raw data:');
-console.log(data)
 
 let categories = data.category;
 const getCategory = id => categories.find(category => category.id === id).category;

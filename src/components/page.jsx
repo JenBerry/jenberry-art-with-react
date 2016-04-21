@@ -14,10 +14,6 @@ const HeaderContainer = connect(( state ) => {
 
 
 const Page = React.createClass({
-	componentDidUpdate(){
-		console.log("state updated");
-		console.log(this.props.state);
-	},
 	componentWillMount(){
 		this.props.initialiseGalleries();
 		this.props.initialiseArt();

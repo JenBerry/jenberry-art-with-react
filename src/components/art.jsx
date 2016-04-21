@@ -15,8 +15,6 @@ const ArtPageContents = React.createClass({
 			mainCategory = this.props.selectedGalleryObject.mainCategory;
 			galleries = galleries.filter(g => g.mainCategory ===  mainCategory);
 		}
-		console.log('main category is ' + mainCategory);
-
 		const sortedGalleries = galleries.reduce((buckets, item)=>{
 			if(!buckets[item.subCategory]){
 				buckets[item.subCategory] = [];
