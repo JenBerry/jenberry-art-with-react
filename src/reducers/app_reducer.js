@@ -71,7 +71,6 @@ const galleryListReducer = (state = [], action) =>{
 						mainCategory: action.mainCategory,
 						subCategory: action.subCategory,
 						description: action.description,
-						order: action.order
 					}
 				];
 		};

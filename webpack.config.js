@@ -20,7 +20,7 @@ module.exports = {
 				loader: 'url?limit=10000'
 			},
 			{
-				test: /\.(ttf|eot)$/,
+				test: /\.(ttf|eot|jpg|png)$/,
 				loader: 'file'
 			},
 			{

@@ -14,6 +14,10 @@ const HeaderContainer = connect(( state ) => {
 
 
 const Page = React.createClass({
+	// componentDidUpdate(){
+	// 	console.log("state updated");
+	// 	console.log(this.props.state);
+	// },
 	componentWillMount(){
 		this.props.initialiseGalleries();
 		this.props.initialiseArt();
@@ -22,7 +26,28 @@ const Page = React.createClass({
 			this.props.setPath(ev.pathname);
 		});
 	},
+	componentDidMount(){
+		console.log("*************************************************");
+		console.log("|                                               |");
+		console.log("|  ..:::::::::,,,,,  __.,     ,,,,,::::::::..   |");
+		console.log("| ``````````:::::::   :.```   :::::::`````````` |");
+		console.log("|           ,::::::::  :.    ::::::::,          |");
+		console.log("|          /``   `:::::::::::::`     \\          |");
+		console.log("|         /        |'':::::''|        \\         |");
+		console.log("|                  |   ::::  |                  |"); 
+		console.log("|         |             :::                     |");
+		console.log("|        '*'            ::                      |");
+		console.log("|         \\|           ::                       |");
+		console.log("|           \\        .:                         |");
+		console.log("|            `'';;;;''                          |");
+		console.log("|                                               |");
+		console.log("****************************************Jen Berry");
+
+		
+	},
 	render(){
+
+
 		let path = this.props.state.path;
 		let currentNav = 'none';
 
