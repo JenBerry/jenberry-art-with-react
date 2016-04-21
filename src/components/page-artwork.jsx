@@ -27,7 +27,7 @@ const PageArtwork = React.createClass({
 		let nextButton
 		if (typeof nextArt !== 'undefined'){
 			nextButton = (
-				<ThumbButton art={nextArt}>
+				<ThumbButton className="right" art={nextArt}>
 					<p>Next</p>
 				</ThumbButton>
 			)
@@ -35,7 +35,7 @@ const PageArtwork = React.createClass({
 		let prevButton
 		if (typeof prevArt !== 'undefined'){
 			prevButton = (
-				<ThumbButton art={prevArt}>
+				<ThumbButton className="left" art={prevArt}>
 					<p>Previous</p>
 				</ThumbButton>
 			)
@@ -44,25 +44,22 @@ const PageArtwork = React.createClass({
 			<div>
 				<div className="row">
 					<div className="col-xs-12">
-						<h2><Link to={"/gallery/" + gallery.slug}>{gallery.name}</Link></h2>
-					</div>
-				</div>
-				<div className="row">
-					<div className="col-xs-12">
-						<h3>{artwork.name}</h3>
-						<ImageLoader imgProps={{className:"full-width"}} 
-									 src={artwork.url}
-									 preloader={()=><span>Loading...</span>}>
-							<span>Problem Loading artwork</span>
-						</ImageLoader>
-						<p>{artwork.text}</p>
+						<div className="art-container">
+							<h2>{artwork.name}</h2>
+							<ImageLoader imgProps={{className:"full-width"}} 
+										 src={artwork.url}
+										 preloader={()=><span>Loading...</span>}>
+								<span>Problem Loading artwork</span>
+							</ImageLoader>
+							<p className="art-description" dangerouslySetInnerHTML={{__html: artwork.text}} />
+						</div>
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-xs-6">
 						{prevButton}
 					</div>
-					<div className="col-xs-6 text-right">
+					<div className="col-xs-6">
 						{nextButton}
 					</div>
 				</div>

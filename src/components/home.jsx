@@ -9,15 +9,14 @@ const HomePageContents = React.createClass({
 			return(
 				<li className="block-grid-item list-unstyled" key={i}>
 					<ThumbButton art={artThumb}>
-						<h3>{artThumb.name}</h3>
+						<p>{artThumb.name}</p>
 					</ThumbButton>
 				</li>
 			)
 		}, this);
 		return(
 			<div>
-				<h2>Home</h2>
-				<h3>Newest additons</h3>
+				<h2>Newest additons</h2>
 				<div className="block-grid-xs-2">
 					{artItems}
 				</div>

@@ -32,8 +32,8 @@ const ArtPageContents = React.createClass({
 						<h2>{category}</h2>
 						{sortedGalleries[category].map((gallery, i) => {
 							return (
-								<li key={i}><Link className="block-link" to={"/gallery/" + gallery.slug}>
-									<h3 key={i}>{gallery.name}</h3>
+								<li className="list-unstyled" key={i}><Link className="thumbnail" to={"/gallery/" + gallery.slug}>
+									<h3 key={i} className="caption">{gallery.name}</h3>
 									<img className="full-width" src={gallery.imageUrl} />
 								</Link></li>
 							)

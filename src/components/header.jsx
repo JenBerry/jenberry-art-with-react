@@ -1,5 +1,6 @@
 const React = require('react');
 const Link = require('react-router').Link;
+const {mediaRoot} = require('../globals.js');
 
 const Header = React.createClass({
 	render(){
@@ -48,20 +49,26 @@ const Header = React.createClass({
 		}, this);
 
 		return(
-			<header className="page-header">
-				{path}
-				<h1>Jen Berry </h1>
-				<nav>
-					<ul className="nav nav-pills">
-						{navItems}
-					</ul>
-				</nav>
-				<ol className="breadcrumb">
-					<li><Link to="home">Home</Link></li>
-					{pageBreadcrumb}
-					{galleryBreadcrumb}
-					{artworkBreadcrumb}
-				</ol>
+			<header className="row">
+				<div className="col-xs-12 col-sm-6 breadcrumb-container">
+					<ol className="breadcrumb">
+						<li><Link to="home">Home</Link></li>
+						{pageBreadcrumb}
+						{galleryBreadcrumb}
+						{artworkBreadcrumb}
+					</ol>
+				</div>
+				<div className="page-header col-xs-12 col-sm-6">
+					<h1>
+						<img className="full-width" src={mediaRoot+"/img/jenberry2.png"} alt="Jen Berry" title="Jen Berry" />
+					</h1>
+					<nav>
+						<ul className="nav nav-pills">
+							{navItems}
+						</ul>
+					</nav>
+				</div>
+				<div className="clearfix"></div>
 			</header>
 		);
 	}

@@ -1,9 +1,119 @@
 @import "~bootstrap/less/bootstrap.less";
+@import "variables.less";
 @import "block-grid.less";
 
-a.block-link{
-	display: block;
+@media: "http://jenberry.co.uk/art/media";
+
+a{
+	text-decoration: underline;
+}
+h2{
+	padding-bottom: 22px;
 }
 .full-width{
-	width:100%;
+	max-width:100%;
+}
+.border-image{
+	border: 2px solid @brand-secondary;
+}
+.thumbnail{
+	text-align: center;
+	&.right{
+		text-align: right;
+	}
+	&.left{
+		text-align: left;
+	}
+	img{
+		max-width: 100%;
+		.border-image;
+	}
+	&:hover img{
+		border-color: @brand-highlight;
+	}
+}
+.breadcrumb-container{
+	background-color: #000;
+	.breadcrumb{
+		margin-bottom: 0;
+	}
+}
+.page-header{
+	h1{
+		margin:0;
+	}
+	.nav{
+		font-size: 1.3em;
+		max-width:300px;
+		margin: -25px auto 0;
+		li a{ 
+			padding-top:0;
+			padding-bottom:5px;
+			&:hover{
+				text-decoration: underline;
+			}
+		}
+	}
+}
+.page-footer{
+	padding: 15px 0;
+}
+.container-fluid{
+	max-width: 1100px;
+	&.main{padding: 0;}
+	&.none{
+		background: url("@{media}/img/background.jpg") no-repeat fixed;
+	}
+	&.home{
+		background: url("@{media}/img/background.jpg") no-repeat fixed;
+		.inner-container{
+			background: url("@{media}/img/monkey.png") left top/48% no-repeat;
+		}
+	}
+	&.art{
+		background: url("@{media}/img/backgroundgrn.jpg") no-repeat fixed;
+		.inner-container{
+			background: url("@{media}/img/gravak.png") left top/48% no-repeat;
+		}
+	}
+	&.design{
+		background: url("@{media}/img/background.jpg") no-repeat fixed;
+		.inner-container{
+			background: url("@{media}/img/drosophila.png") left top/48% no-repeat;
+		}
+	}
+	&.about{
+		background: url("@{media}/img/backgroundblue.jpg") no-repeat fixed;
+		.inner-container{
+			background: url("@{media}/img/wilderlandbg.png") left top/48% no-repeat;
+		}
+	}
+	&.contact{
+		background: url("@{media}/img/backgroundblue.jpg") no-repeat fixed;
+		.inner-container{
+			background: url("@{media}/img/moths.png") left top/48% no-repeat;
+		}
+	}
+	.inner-container{
+		padding: 0 @grid-gutter-width/2;
+		@media (max-width: @screen-xs-max) {
+			background: none!important;
+		}
+		.page-contents{
+			min-height:500px;
+		}
+	}
+}
+.art-container{
+	text-align: center;
+	background-color: rgba(221,187,170,0.3);
+	margin: 15px 0;
+	padding: 15px;
+	img{
+		.border-image;
+	}
+	.art-description{
+		padding: 15px 0;
+		text-align: left;
+	}
 }

@@ -4,12 +4,14 @@ const ImageLoader = require('react-imageloader');
 
 const ThumbButton = (props) => {
 	return (
-		<Link to={"/artwork/"+props.art.id} className="block-link" href="">
+		<Link to={"/artwork/"+props.art.id} className={"thumbnail " + props.className} href="">
 			<ImageLoader src={props.art.thumbUrl}
 						 preloader={()=><span>Loading...</span>} >
 				<span>Problem loading thumbnail</span>
 			</ImageLoader>
-			{props.children}
+			<div className="caption">
+				{props.children}
+			</div>
 		</Link>
 	);
 };

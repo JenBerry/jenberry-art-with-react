@@ -8,14 +8,15 @@
 // 	return action;
 // }
 
-const addGallery = ({name, slug, imageUrl, mainCategory, subCategory}) => {
+const addGallery = ({name, slug, imageUrl, mainCategory, subCategory, description}) => {
 	const action = {
 		type: 'ADD_GALLERY',
 		name,
 		slug,
 		imageUrl,
 		mainCategory,
-		subCategory
+		subCategory,
+		description
 	};
 	return action;
 }

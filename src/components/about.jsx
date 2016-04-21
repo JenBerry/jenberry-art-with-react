@@ -8,7 +8,7 @@ const HomePageContents = React.createClass({
 			<div>
 				<h2>About Me</h2>
 				<p>
-					<img src={mediaRoot+"/img/me.jpg"} title="Jen Berry, Artist" alt="Photo of me" />
+					<img className="full-width border-image" src={mediaRoot+"/img/me.jpg"} title="Jen Berry, Artist" alt="Photo of me" />
 					Photo courtesy of Leela Sky Photography
 				</p>
 				<p>Who am I? A difficult question. I left my home town in rural Cumbria and went to Cambridge University to study Physics, but came out with a degree in Zoology (That's right, I am "Jennifer Berry BA Hons Cantab", a title that gives me some pride). I then got a job in User Experience design &amp; programming for a year and a half, and was very pleased with my abilities in this area, but I quit in order to travel around the world for a year.</p>

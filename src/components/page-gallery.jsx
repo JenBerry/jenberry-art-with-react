@@ -1,5 +1,4 @@
 const React = require('react');
-const Lorem = require('react-lorem-component');
 const Link = require('react-router').Link;
 const ThumbButton = require('./thumb-button.jsx');
 
@@ -27,7 +26,7 @@ const PageGallery = React.createClass({
 			return(
 				<li className="block-grid-item list-unstyled" key={i}>
 					<ThumbButton art={artThumb}>
-						<h3>{artThumb.name}</h3>
+						<p>{artThumb.name}</p>
 					</ThumbButton>
 				</li>
 			)
@@ -36,13 +35,11 @@ const PageGallery = React.createClass({
 			<div>
 				<div className="row">
 					<div className="col-xs-12">
-						<h2>Art Gallery: {currentGallery.name}</h2>
+						<h2>{currentGallery.name}</h2>
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-xs-12 col-sm-3">
-						<Lorem count="1"/>
-					</div>
+					<div className="col-xs-12 col-sm-3" dangerouslySetInnerHTML={{__html: currentGallery.description}} />
 					<div className="col-xs-12 col-sm-9">
 						<div className="block-grid-xs-2 block-grid-sm-3 block-grid-md-4" >
 							{artItems}

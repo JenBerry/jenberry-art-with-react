@@ -69,7 +69,8 @@ const galleryListReducer = (state = [], action) =>{
 						slug: action.slug.toLowerCase(),
 						imageUrl: action.imageUrl,
 						mainCategory: action.mainCategory,
-						subCategory: action.subCategory
+						subCategory: action.subCategory,
+						description: action.description
 					}
 				];
 		};

@@ -26,7 +26,8 @@ const PageContainer = connect(
 						slug: gallery.slug,
 						imageUrl: gallery.imageUrl,
 						mainCategory: gallery.mainCategory,
-						subCategory: gallery.subCategory
+						subCategory: gallery.subCategory,
+						description: gallery.description
 					}))
 				};
 			},
