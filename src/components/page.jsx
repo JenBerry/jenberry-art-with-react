@@ -42,8 +42,7 @@ const Page = React.createClass({
 		console.log("|            `'';;;;''                          |");
 		console.log("|                                               |");
 		console.log("****************************************Jen Berry");
-
-		
+		console.log("You can find the full code for this app at https://github.com/JenBerry/jenberry-art-with-react");
 	},
 	render(){
 
