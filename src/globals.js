@@ -1,3 +1,3 @@
 module.exports = {
-	mediaRoot: '../build/media'
+	mediaRoot: './media'
 };
