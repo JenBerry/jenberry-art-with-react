@@ -44,6 +44,11 @@ const PageArtwork = React.createClass({
 			<div>
 				<div className="row">
 					<div className="col-xs-12">
+						<Link to={"/gallery/" + gallery.slug}>{gallery.name}</Link>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-xs-12">
 						<div className="art-container">
 							<h2>{artwork.name}</h2>
 							<ImageLoader imgProps={{className:"full-width"}} 

@@ -4,9 +4,6 @@
 
 @media: "http://jenberry.co.uk/art/media";
 
-a{
-	text-decoration: underline;
-}
 h2{
 	padding-bottom: 22px;
 }
@@ -36,27 +33,37 @@ h2{
 	background-color: #000;
 	.breadcrumb{
 		margin-bottom: 0;
+		text-transform: capitalize;
 	}
 }
 .page-header{
+	margin: 0;
+	padding: @grid-gutter-width/2;
+	text-align: center;
 	h1{
 		margin:0;
 	}
 	.nav{
 		font-size: 1.3em;
-		max-width:300px;
-		margin: -25px auto 0;
+		max-width:250px;
+		margin: -30px auto 0;
+		text-transform: capitalize;
+		display: inline-block;
 		li a{ 
 			padding-top:0;
-			padding-bottom:5px;
+			padding-bottom:0;
 			&:hover{
 				text-decoration: underline;
 			}
 		}
+		@media (max-width: @screen-xs-max) {
+			margin-top: 0;
+			max-width: none;
+		}
 	}
 }
 .page-footer{
-	padding: 15px 0;
+	padding: @grid-gutter-width/2 0;
 }
 .container-fluid{
 	max-width: 1100px;
@@ -100,20 +107,20 @@ h2{
 			background: none!important;
 		}
 		.page-contents{
-			min-height:500px;
+			min-height:600px;
 		}
 	}
 }
 .art-container{
 	text-align: center;
 	background-color: rgba(221,187,170,0.3);
-	margin: 15px 0;
-	padding: 15px;
+	margin: 0 0 @grid-gutter-width/2;
+	padding: @grid-gutter-width/2;
 	img{
 		.border-image;
 	}
 	.art-description{
-		padding: 15px 0;
+		padding: @grid-gutter-width/2 0;
 		text-align: left;
 	}
 }

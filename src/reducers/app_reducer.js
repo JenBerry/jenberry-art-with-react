@@ -70,7 +70,8 @@ const galleryListReducer = (state = [], action) =>{
 						imageUrl: action.imageUrl,
 						mainCategory: action.mainCategory,
 						subCategory: action.subCategory,
-						description: action.description
+						description: action.description,
+						order: action.order
 					}
 				];
 		};

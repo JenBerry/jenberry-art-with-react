@@ -95,15 +95,7 @@ const ArtPageContentsContainer = connect(
 
 const HomeContainer = connect(
 	(state) => {return{
-		artworks: state.artworks.sort((a,b)=> {
-			if (a.date < b.date){
-				return 1
-			}
-			if (a.date > b.date){
-				return -1
-			}
-			return 0
-		}).slice(0,8)
+		artworks: state.artworks.slice(0,8)
 	}}
 )(HomePageContents);
 

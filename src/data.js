@@ -9,25 +9,26 @@ const getCategory = id => categories.find(category => category.id === id).catego
 
 let galleries = data.galleryid;
 const extraGalleryData = [
-	{gallery: 'digital-paintings', image: 'digibutton.png',    subCategory: 'Artwork'},
-	{gallery: 'pen-animals',       image: 'penbutton.png',     subCategory: 'Artwork'},
-	{gallery: 'traditional',       image: 'tradbutton.png',    subCategory: 'Artwork'},
-	{gallery: 'sketches',          image: 'quickbutton.png',   subCategory: 'Artwork'},
-	{gallery: 'walkthroughs',      image: 'stepbutton.png',    subCategory: 'Artwork'},
-	{gallery: 'abstract',          image: 'abstractbutton.jpg',subCategory: 'Artwork'},
-	{gallery: 'animal-photography',image: '',                  subCategory: 'Photography'},
-	{gallery: 'scisoc',            image: 'posterbutton.png',  subCategory: 'Projects'},
-	{gallery: 'weevil',            image: 'magbutton.png',     subCategory: 'Projects'},
-	{gallery: 'orchard-park',      image: 'opbutton.png',      subCategory: 'Projects'},
-	{gallery: 'logos',             image: 'logobutton.png',    subCategory: 'Design'},
-	{gallery: 'websites',          image: 'webbutton.png',     subCategory: 'Design'},
-	{gallery: 'rocksoc',           image: 'rocksocbutton.png', subCategory: 'Projects'},
-	{gallery: 'domino',            image: 'dominobutton.jpg',  subCategory: 'Projects'},
+	{gallery: 'digital-paintings', image: 'digibutton.png',    subCategory: 'Artwork',   order:2},
+	{gallery: 'pen-animals',       image: 'penbutton.png',     subCategory: 'Artwork',   order:4},
+	{gallery: 'traditional',       image: 'tradbutton.png',    subCategory: 'Artwork',   order:3},
+	{gallery: 'sketches',          image: 'quickbutton.png',   subCategory: 'Artwork',   order:5},
+	{gallery: 'walkthroughs',      image: 'stepbutton.png',    subCategory: 'Artwork',   order:6},
+	{gallery: 'abstract',          image: 'abstractbutton.jpg',subCategory: 'Artwork',   order:1},
+	{gallery: 'animal-photography',image: '',                  subCategory: 'Photography', order: 100},
+	{gallery: 'scisoc',            image: 'posterbutton.png',  subCategory: 'Projects',  order:3},
+	{gallery: 'weevil',            image: 'magbutton.png',     subCategory: 'Projects',  order:4},
+	{gallery: 'orchard-park',      image: 'opbutton.png',      subCategory: 'Projects',  order:2},
+	{gallery: 'logos',             image: 'logobutton.png',    subCategory: 'Design',    order:1},
+	{gallery: 'websites',          image: 'webbutton.png',     subCategory: 'Design',    order:2},
+	{gallery: 'rocksoc',           image: 'rocksocbutton.png', subCategory: 'Projects',  order:5},
+	{gallery: 'domino',            image: 'dominobutton.jpg',  subCategory: 'Projects',  order:2},
 ];
 const getGalleryImage = (gallery) => extraGalleryData.find(g => g.gallery === gallery);
 galleries = galleries.map((gallery)=>{
 	const galleryImage = getGalleryImage(gallery.galleryid).image;
 	const gallerySubCategory = getGalleryImage(gallery.galleryid).subCategory;
+	const galleryOrder = getGalleryImage(gallery.galleryid).order;
 	return {
 		id: gallery.id,
 		name: gallery.name,
@@ -35,8 +36,18 @@ galleries = galleries.map((gallery)=>{
 		imageUrl: `${mediaRoot}/img/${galleryImage}`,
 		mainCategory: getCategory(gallery.categoryid),
 		subCategory: gallerySubCategory,
-		description: gallery.description
+		description: gallery.description,
+		order: galleryOrder
 	};
+});
+galleries = galleries.sort((a,b)=> {
+	if (a.order > b.order){
+		return 1
+	}
+	if (a.order < b.order){
+		return -1
+	}
+	return 0
 });
 const getGallerySlug = id => galleries.find(gallery => gallery.id === id).slug;
 const getGalleryCategory = id => galleries.find(gallery => gallery.id === id).mainCategory;
@@ -64,6 +75,15 @@ artworks = artworks.map((artwork)=>{
 		text: artwork.description,
 		date: date
 	};
+});
+artworks = artworks.sort((a,b)=> {
+	if (a.date < b.date){
+		return 1
+	}
+	if (a.date > b.date){
+		return -1
+	}
+	return 0
 });
 
 module.exports = {galleries, artworks};
