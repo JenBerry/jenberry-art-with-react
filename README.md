@@ -18,4 +18,4 @@ npm install
 
 ######On heroku:
 See the site in its current state up and running on heroku
-https://still-fortress-49011.herokuapp.com
+https://jenberry-art.herokuapp.com
