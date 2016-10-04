@@ -3,7 +3,7 @@ var path = require('path');
 var app = express();
 
 var isDevelopment = (process.env.NODE_ENV !== 'production');
-var static_path = path.join(__dirname, 'build');
+var static_path = path.join(__dirname, 'docs');
 
 app.use(express.static(static_path));
 app.get('/', function (req, res) {
@@ -24,7 +24,7 @@ if (isDevelopment) {
 	new WebpackDevServer(webpack(config), {
 		publicPath: config.output.publicPath,
 		hot: false,
-		contentBase: 'build/'
+		contentBase: 'docs/'
 	}).listen(3000, 'localhost', function (err, result) {
 		if (err) { console.log(err) }
 		console.log('Listening at localhost:3000');
