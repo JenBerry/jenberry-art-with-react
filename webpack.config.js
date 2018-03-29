@@ -9,7 +9,8 @@ module.exports = {
 	module: {
 		loaders: [
 			{
-				test: /src\/.*.jsx?$/,
+				test: /\.(js|jsx)$/,
+				exclude: '/node_modules/',
 				loader: 'babel-loader',
 				query: {
 					presets: ['react', 'es2015']
@@ -24,7 +25,8 @@ module.exports = {
 				loader: 'file'
 			},
 			{
-				test: /src\/.*.less$/,
+				test: /\.less$/,
+				exclude: '/node_modules/',
 				loaders: ["style", "css", "less"]
 			},
 			{
