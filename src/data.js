@@ -1,46 +1,27 @@
-const expect = require('expect');
 const data = require('../data.json');
 const {mediaRoot} = require('./globals.js');
-// console.log('raw data:');
-// console.log(data)
 
-let categories = data.category;
-const getCategory = id => categories.find(category => category.id === id).category;
+const checkCategory = (category) => {
+	if (data.validCategories.indexOf(category) >= 0) {
+		return category
+	} else {
+		console.log(new Error(`Invalid data, category does not exist: ${category}`))
+		return ""
+	}
+}
 
-let galleries = data.galleryid;
-const extraGalleryData = [
-	{gallery: 'digital-paintings', image: 'digibutton.png',    subCategory: 'Artwork',   order:2},
-	{gallery: 'pen-animals',       image: 'penbutton.png',     subCategory: 'Artwork',   order:4},
-	{gallery: 'traditional',       image: 'tradbutton.png',    subCategory: 'Artwork',   order:3},
-	{gallery: 'sketches',          image: 'quickbutton.png',   subCategory: 'Artwork',   order:5},
-	{gallery: 'walkthroughs',      image: 'stepbutton.png',    subCategory: 'Artwork',   order:6},
-	{gallery: 'abstract',          image: 'abstractbutton.jpg',subCategory: 'Artwork',   order:1},
-	{gallery: 'animal-photography',image: '',                  subCategory: 'Photography', order: 100},
-	{gallery: 'scisoc',            image: 'posterbutton.png',  subCategory: 'Projects',  order:3},
-	{gallery: 'weevil',            image: 'magbutton.png',     subCategory: 'Projects',  order:4},
-	{gallery: 'orchard-park',      image: 'opbutton.png',      subCategory: 'Projects',  order:2},
-	{gallery: 'logos',             image: 'logobutton.png',    subCategory: 'Design',    order:1},
-	{gallery: 'websites',          image: 'webbutton.png',     subCategory: 'Design',    order:2},
-	{gallery: 'rocksoc',           image: 'rocksocbutton.png', subCategory: 'Projects',  order:5},
-	{gallery: 'domino',            image: 'dominobutton.jpg',  subCategory: 'Projects',  order:2},
-];
-const getGalleryImage = (gallery) => extraGalleryData.find(g => g.gallery === gallery);
-galleries = galleries.map((gallery)=>{
-	const galleryImage = getGalleryImage(gallery.galleryid).image;
-	const gallerySubCategory = getGalleryImage(gallery.galleryid).subCategory;
-	const galleryOrder = getGalleryImage(gallery.galleryid).order;
+const galleries = data.gallery.map((gallery)=>{
 	return {
 		id: gallery.id,
 		name: gallery.name,
 		slug: gallery.galleryid,
-		imageUrl: `${mediaRoot}/img/${galleryImage}`,
-		mainCategory: getCategory(gallery.categoryid),
-		subCategory: gallerySubCategory,
+		imageUrl: `${mediaRoot}/img/${gallery.galleryImage}`,
+		mainCategory: checkCategory(gallery.category),
+		subCategory: gallery.subCategory,
 		description: gallery.description,
-		order: galleryOrder
+		order: gallery.order
 	};
-});
-galleries = galleries.sort((a,b)=> {
+}).sort((a,b)=> {
 	if (a.order > b.order){
 		return 1
 	}
@@ -49,11 +30,11 @@ galleries = galleries.sort((a,b)=> {
 	}
 	return 0
 });
+
 const getGallerySlug = id => galleries.find(gallery => gallery.id === id).slug;
 const getGalleryCategory = id => galleries.find(gallery => gallery.id === id).mainCategory;
 
-let artworks = data.artwork;
-artworks = artworks.map((artwork)=>{
+const artworks = data.artwork.map((artwork)=>{
 	const mainCategory = getGalleryCategory(artwork.galleryid);
 	let date = artwork.date.toString();
 	if (date.length === 5){
@@ -75,8 +56,7 @@ artworks = artworks.map((artwork)=>{
 		text: artwork.description,
 		date: date
 	};
-});
-artworks = artworks.sort((a,b)=> {
+}).sort((a,b)=> {
 	if (a.date < b.date){
 		return 1
 	}

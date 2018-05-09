@@ -11,9 +11,9 @@ app.get('/', function (req, res) {
 		root: static_path
 	});
 });
-app.listen(process.env.PORT || 8080, function (err) {
+app.listen(process.env.PORT || 8081, function (err) {
 	if (err) { console.log(err) };
-	console.log('Listening at localhost:8080');
+	console.log('Listening at localhost:8081');
 });
 
 if (isDevelopment) {
