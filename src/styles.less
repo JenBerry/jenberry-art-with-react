@@ -28,6 +28,11 @@ h2{
 	&:hover img{
 		border-color: @brand-highlight;
 	}
+	&.square{
+		img {
+			width: 164px;
+		}
+	}
 }
 .breadcrumb-container{
 	background-color: #000;
@@ -112,15 +117,27 @@ h2{
 	}
 }
 .art-container{
-	text-align: center;
-	background-color: rgba(221,187,170,0.3);
-	margin: 0 0 @grid-gutter-width/2;
-	padding: @grid-gutter-width/2;
+	// text-align: center;
+	// margin: 0 0 @grid-gutter-width/2;
+	// padding: @grid-gutter-width/2;
+	background-color: black;
+	display: block;
+	position: fixed;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	img{
 		.border-image;
+		max-width: 100%;
+		max-height: 100%;
 	}
-	.art-description{
-		padding: @grid-gutter-width/2 0;
-		text-align: left;
-	}
+	// .art-description{
+	// 	padding: @grid-gutter-width/2 0;
+	// 	text-align: left;
+	// }
 }

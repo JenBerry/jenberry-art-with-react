@@ -1,9 +1,10 @@
 const React = require('react');
-const Link = require('react-router').Link;
-const Lorem = require('react-lorem-component');
-const ImageLoader = require('react-imageloader');
+// const Link = require('react-router').Link;
+// const Lorem = require('react-lorem-component');
+// const ImageLoader = require('react-imageloader');
+// const {hashHistory} = require('react-router');
 
-const ThumbButton = require('./thumb-button.jsx');
+// const ThumbButton = require('./thumb-button.jsx');
 
 const PageArtwork = React.createClass({
 	setArt(){
@@ -18,58 +19,63 @@ const PageArtwork = React.createClass({
 	},
 	render(){
 		const artwork = this.props.artwork;
-		const gallery = this.props.gallery;
-		const nextArt = this.props.nextArt;
-		const prevArt = this.props.prevArt;
+		// const gallery = this.props.gallery;
+		// const nextArt = this.props.nextArt;
+		// const prevArt = this.props.prevArt;
 		if (typeof artwork == 'undefined' ){
 			return <h2>No artwork selected</h2>
 		}
-		let nextButton
-		if (typeof nextArt !== 'undefined'){
-			nextButton = (
-				<ThumbButton className="right" art={nextArt}>
-					<p>Next</p>
-				</ThumbButton>
-			)
-		}
-		let prevButton
-		if (typeof prevArt !== 'undefined'){
-			prevButton = (
-				<ThumbButton className="left" art={prevArt}>
-					<p>Previous</p>
-				</ThumbButton>
-			)
-		}
+		// let nextButton
+		// if (typeof nextArt !== 'undefined'){
+		// 	nextButton = (
+		// 		<ThumbButton className="right" art={nextArt}>
+		// 			<p>Next</p>
+		// 		</ThumbButton>
+		// 	)
+		// }
+		// let prevButton
+		// if (typeof prevArt !== 'undefined'){
+		// 	prevButton = (
+		// 		<ThumbButton className="left" art={prevArt}>
+		// 			<p>Previous</p>
+		// 		</ThumbButton>
+		// 	)
+		// }
+		// return(
+		// 	<div>
+		// 		<div className="row">
+		// 			<div className="col-xs-12">
+		// 				<Link to={"/gallery/" + gallery.slug}>{gallery.name}</Link>
+		// 			</div>
+		// 		</div>
+		// 		<div className="row">
+		// 			<div className="col-xs-12">
+		// 				<div className="art-container">
+		// 					<h2>{artwork.name}</h2>
+		// 					<ImageLoader imgProps={{className:"full-width"}} 
+		// 								 src={artwork.url}
+		// 								 preloader={()=><span>Loading...</span>}>
+		// 						<span>Problem Loading artwork</span>
+		// 					</ImageLoader>
+		// 					<p className="art-description" dangerouslySetInnerHTML={{__html: artwork.text}} />
+		// 				</div>
+		// 			</div>
+		// 		</div>
+		// 		<div className="row">
+		// 			<div className="col-xs-6">
+		// 				{prevButton}
+		// 			</div>
+		// 			<div className="col-xs-6">
+		// 				{nextButton}
+		// 			</div>
+		// 		</div>
+		// 	</div>
+		// );
 		return(
-			<div>
-				<div className="row">
-					<div className="col-xs-12">
-						<Link to={"/gallery/" + gallery.slug}>{gallery.name}</Link>
-					</div>
-				</div>
-				<div className="row">
-					<div className="col-xs-12">
-						<div className="art-container">
-							<h2>{artwork.name}</h2>
-							<ImageLoader imgProps={{className:"full-width"}} 
-										 src={artwork.url}
-										 preloader={()=><span>Loading...</span>}>
-								<span>Problem Loading artwork</span>
-							</ImageLoader>
-							<p className="art-description" dangerouslySetInnerHTML={{__html: artwork.text}} />
-						</div>
-					</div>
-				</div>
-				<div className="row">
-					<div className="col-xs-6">
-						{prevButton}
-					</div>
-					<div className="col-xs-6">
-						{nextButton}
-					</div>
-				</div>
+			<div className="art-container">
+				<img src={artwork.url} />
 			</div>
-		);
+		)
 	}
 });
 
